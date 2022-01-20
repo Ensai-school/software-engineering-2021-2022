@@ -24,8 +24,9 @@ description: >- # this means to ignore newlines until "baseurl:"
   Site contenant les ressources des cours de software engineering délivré aux élèves
   de troisième années (master *Data Science pour la Décision Publique* et filière
   *Data Science et Ingénierie des données* )
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://ensai.fr/" # the base hostname & protocol for your site, e.g. http://example.com
+domaine: ensai-school.github.io
+baseurl: "/software-engineering-2021-2022/" # the subpath of your site, e.g. /blog
+url: "https://ensai-school.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  HealerMikado
 
 # Build settings
