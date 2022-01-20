@@ -1,0 +1,747 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>🧰 Outils de dev</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+        <link rel="stylesheet" href="css/mine.css">
+        
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">                
+                <section>
+                    <section>
+                        <h1>Les outils pour écrire du bon code 🧰</h1>
+                    </section>
+                    <section>
+                        <h3>Overview</h3>
+                        <ul>
+                            <li>Build system : maven (java), buildout(python)</li>
+                            <li>Test : Junit4/5 (java), pytest(python)</li>
+                            <li>Logging : log4j (java), logger(python)</li>
+                            <li>Gestion code source : git</li>
+                            <li>Bonnes pratiques de code</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Maven</h2>
+                    </section>
+
+                    <section>
+                        <h3>Historique</h3>
+                        <ul>
+                            <li>Dans les années 70 : compilation des programmes de plus en plus
+                                 longue et complexe (plusieurs fichiers, commandes, interdépendance)</li>
+                            <li>Make pour automatiser la compilation, fichier makefile avec 
+                                toutes les commandes, facile à partager et réutiliser</li>
+                            <li>Java : langage compilé, différentes versions,
+                                de dépendances externe etc 
+                            </li>
+                            <li>Maven : remplaçant de Make pour java</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>C'est quoi Maven</h3>
+                        <ul>
+                            <li>⛽Un outil de gestion des dépendances</li>
+                            <li>🚀Un outil de build + déploiement</li>
+                            <li>📚Un outil de documentation</li>
+                        </ul>
+
+                    </section>
+
+                    <section>
+                        <h3>Les objectifs</h3>
+                        <ul>
+                            <li>Rendre transparente les tâches de build</li>
+                            <li>Uniformisation des outils</li>
+                            <li>Standardisation des pratiques de dev</li>
+                            <li>Limiter le temps de formation des juniors</li>
+                            <li>Limiter l'impact de l'hétérogénéité des configs</li>
+                            <li>Se concentre sur l'écriture de code</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Un monde sans Maven (ou équivalent) 🔥👿</h3>
+                        <ul>
+                            <li>Importer à la main les dépendances (pensez pip et le projet 2A)</li>
+                            <li>Devoir compiler à la main son application (merci les IDE de faire ça pour nous 💖)</li>
+                            <li>Incompatibilités possibles en fonction des versions de java installées</li>
+                            <li>Customisation du process de build/déploiement difficile</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Cycle de vie java</h3>
+                        <ol>
+                            <li>Ecriture de code</li>
+                            <li>Compilation du code :<pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
+javac -cp [external jars] [file1, file2...]
+                                </code></pre> </li>
+                            <li>Lancer le code : 
+                                <pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
+java -cp [external jars] [main file] 
+                            </code></pre> </li>
+                            <li>Création d'un jar : 
+                                <pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
+jar -cm [path.to.MANIFEST] [file1.class, file2.class]
+                            </code></pre> </li>
+                            <li>Lancer un jar : 
+                                <pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
+java jar -cm [path.to.MANIFEST] [file1.class, file2.class]
+                            </code></pre> </li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <h3>Hands-on 1.0 ☕: java sans rien</h3>
+                        <ul>
+                            <li>Créez une class App avec un main qui print un hello world</li>
+                            <li>Compilez cette classe via le terminal</li>
+                            <li>Lancez là</li>
+                            <li>Faites-en un jar exécutable (internet est votre ami)</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Hands-on 1.1 ☕: java sans rien 2</h3>
+                        <ul>
+                            <li>Récupérez le code sur Moodle</li>
+                            <li>Compilez les classe</li>
+                            <li>Lancez App.class</li>
+                            <li>Faites-en un jar exécutable et lancez le</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Hands-on 1.2 ☕: java sans rien 3</h3>
+                        <ul>
+                            <li>Récupérer le code sur Moodle</li>
+                            <li>Compilez les classe</li>
+                            <li>Lancez App.class</li>
+                            <li>Faites-en un jar exécutable et lancez le</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h3>Meet Maven 🐦</h3>
+                        Apache Maven is a <span class="important">software project management
+                        and comprehension tool</span>.
+                        Based on the concept of <span class="important">a project object model (POM)</span>
+                        , Maven can manage a <span class="important">project's build, reporting and documentation</span>
+                        from a <span class="important">central piece of information</span>.
+                    </section>
+
+                    <section>
+                        <h3>Cycle de vie Maven</h3>
+                        <ol>
+                            <li>validate - validate the project is correct and all necessary information is available</li>
+                            <li>compile - compile the source code of the project</li>
+                            <li>test - test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed</li>
+                            <li>package - take the compiled code and package it in its distributable format, such as a JAR.</li>
+                            <li>verify - run any checks on results of integration tests to ensure quality criteria are met</li>
+                            <li>install - install the package into the local repository, for use as a dependency in other projects locally</li>
+                            <li>deploy - done in the build environment, copies the final package to the remote repository for sharing with other developers and projects.</li>
+                        </ol>
+                        <ul>
+                            <li>clean : cleans up artifact created by prior builds</li>
+                            <li>site : generates site documentation for this project</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Cycle de vie Maven</h3>
+                        <ul>
+                            <li>Pour build un projet : mvn package</li>
+                            <li>Pour déployer : mvn deploy</li>
+                            <li>Pour générer un site documentation : mvn site</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Le Project Object Model (POM.xml) 🍎</h3>
+                        <p>Contient</p>
+                        <ul>
+                            <li>Les metadata du projet : nom, version, contributor</li>
+                            <li>Version de java à utiliser</li>
+                            <li>Comment il faut le packager : war / jar</li>
+                            <li>Les dépendances : bibliothèques externes</li>
+                            <li>Comment il faut le builder</li>
+                        </ul>
+
+                        <div class="important">Contient toutes les informations pour faire fonctionner votre projet</div>
+                    </section>
+
+                    <section>
+                        <h3>Exemple de POM</h3>
+                        <pre><code data-trim class="language-xml">
+                            <project>
+                                <modelVersion>4.0.0</modelVersion>
+                               
+                                <groupId>fr.ensai.app</groupId>
+                                <artifactId>my-app</artifactId>
+                                <version>1</version>
+
+                                <properties>
+                                    <maven.compiler.source>1.8</maven.compiler.source>
+                                    <maven.compiler.target>1.8</maven.compiler.target>
+                                </properties>
+
+                                <dependencies>
+                                    <dependency>
+                                      <groupId>junit</groupId>
+                                      <artifactId>junit</artifactId>
+                                      <version>4.12</version>
+                                      <type>jar</type>
+                                      <scope>test</scope>
+                                      <optional>true</optional>
+                                    </dependency>
+                                </dependencies>
+
+                              </project>
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Options de build</h3>
+                        <pre><code data-trim class="language-xml">
+                            <project>
+                                <modelVersion>4.0.0</modelVersion>
+                               
+                                <groupId>fr.ensai.app</groupId>
+                                <artifactId>my-app</artifactId>
+                                <version>1</version>
+                                ...
+                                <build>
+                                    <plugins>
+                                        <plugin>
+                                            <groupId>org.apache.maven.plugins</groupId>
+                                            <artifactId>maven-assembly-plugin</artifactId>
+                                
+                                            <configuration>
+                                                <descriptorRefs>
+                                                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                                                </descriptorRefs>
+                                                <archive>
+                                                    <manifest>
+                                                        <mainClass>path.to.Main.class</mainClass>
+                                                    </manifest>
+                                                </archive>
+                                            </configuration>
+                                
+                                            <executions>
+                                                <execution>
+                                                    <id>make-assembly</id>
+                                                    <phase>package</phase>
+                                                    <goals>
+                                                        <goal>single</goal>
+                                                    </goals>
+                                                </execution>
+                                            </executions>
+                                        </plugin>
+                                    </plugins>
+                                </build>
+
+                              </project>
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Hands-on 2 🐦: Maven</h3>
+                        <ol>
+                            <li>Reprenez le code de l'exercice précédent</li>
+                            <li>Créez un POM.xml pour <em>maveniser</em> votre application</li>
+                            <li>Pensez à ajouter la dépendance Apache Commons Collections (go internet)</li>
+                            <li>Compilez votre application avec maven</li>
+                        </ol>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Les tests</h2>
+    
+                        <p class="no-print"><a href="http://www.commitstrip.com/fr/2017/02/08/where-are-the-tests/"><img src="https://www.commitstrip.com/wp-content/uploads/2017/02/Strip-Ou-sont-les-tests-unitaires-650-final.jpg"
+                                    alt="tester c'est douter" class="plain w50"></a><br>Source : commitstrip <a href="http://www.commitstrip.com/fr/2017/02/08/where-are-the-tests/">Lien</a>
+                    </section>
+
+    
+                    <section>
+                        <h3>Définition</h3>
+                        <blockquote cite="https://fr.wikipedia.org/wiki/Test_(informatique)" class="w95 ftsz80">
+                            &ldquo;En informatique, un test désigne une procédure de <span class="important">vérification partielle</span>
+                            d'un système. Son objectif principal est <span class="important">d'identifier un nombre maximum de
+                                comportements problématiques</span>
+                            du logiciel. Il permet ainsi, dès lors que les <span class="important">problèmes identifiés seront
+                                corrigés, d'en augmenter la qualité.</span>
+                            <br>
+                            <br> D'une manière plus générale, le test désigne <span class="important">toutes les activités qui
+                                consistent à rechercher des informations quant à la qualité du système afin de permettre la prise
+                                de décisions.</span>
+                            <br>
+                            <br> Un test ressemble à une <span class="important">expérience scientifique</span>. Il examine une
+                            hypothèse exprimée en fonction de trois éléments : <span class="important">les données en entrée,
+                                l'objet à tester et les observations attendues</span>. Cet examen est effectué sous conditions
+                            contrôlées pour pouvoir tirer des conclusions et, dans l'idéal, <span class="important">être reproduit
+                            </span>&rdquo;
+                        </blockquote>
+    
+    
+                    </section>
+    
+                    <section>
+                        <h3>En résumé</h3>
+                        <ul>
+                            <li class="fragment">Aucun test n'est parfait !</li>
+                            <li class="fragment">Donne seulement une information partielle de la qualité de votre application</li>
+                            <li class="fragment">Permet de détecter des "erreurs"</li>
+                            <li class="fragment">Et de les corriger si vous êtes conciencieux</li>
+                            <li class="fragment">Il y en a plusieurs types</li>
+                            <li class="fragment"> <span class="fragment highlight-important">Et ils doivent être reproductibles
+                                    !</span></li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                        <h3>Pourquoi en tant que dev ?</h3>
+                        <ul>
+                            <li class="fragment">Vérifier que notre code fait ce qu'il doit faire</li>
+                            <li class="fragment">Eviter les régressions quand on modifie le code</li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                        <h3>Quoi tester dans une application ?</h3>
+                        <ul class="fragment">
+                            <li>Les fonctions unitairement</li>
+                            <li>Les modules entre eux</li>
+                            <li>Les use case en entier</li>
+                            <li>La navigation dans l'ihm</li>
+                            <li>La résistance au nombre d'utilisateur</li>
+                            <li>La résistance aux intrusions</li>
+                            <li>...</li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                        <h3>Les tests associés</h3>
+                        <ul>
+                            <li><span class="fragment highlight-important">Tests unitaires</span></li>
+                            <li>Tests d'intégration</li>
+                            <li>Tests fonctionnels</li>
+                            <li>Tests d'IHM</li>
+                            <li>Tests de charge</li>
+                            <li>Test d'intrusion</li>
+                        </ul>
+                    </section>
+    
+    
+                    <section>
+                        <h3>Quand tester ?</h3>
+    
+                        <iframe src="https://giphy.com/embed/2xF8ihOYNJCG0iAXNU" width="1500" height="570" frameBorder="0" class="no-print giphy-embed" allowFullScreen></iframe>
+                    </section>
+    
+                    <section>
+                        <h3>Quand tester ?</h3>
+                        <div class="important-bloc">Au début !!!!!</div>
+                        <p class="fragment">Plus on teste tôt et plus les tests sont efficaces et peu coûteux !</p>
+                    </section>
+    
+                    <section>
+                        <h3>Le Test Driven Developpement (TDD)</h3>
+                        <p class="fragment">Pratique qui consiste à écrire les tests <span class="important">AVANT</span> de
+                            coder</p>
+                        <ul>
+                            <li class="fragment">On commence par écrire un test (inputs, objet à tester,outputs)</li>
+                            <li class="fragment">Puis on définit les fonctions nécessaires pour lancer le test</li>
+                            <li class="fragment">On lance le test -> <span class="red">echec</span></li>
+                            <li class="fragment">On code la fonction pour une réussite minimal -> <span class="green">réussite</span></li>
+                            <li class="fragment">On met à jour la fonctions -> <span class="purple">refactor</span></li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                        <h3>Le Test Driven Developpement (TDD)</h3>
+                        <p><a href="https://commons.wikimedia.org/wiki/File:Cycle-global-tdd.png#/media/Fichier:Cycle-global-tdd.png"><img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Cycle-global-tdd.png/1200px-Cycle-global-tdd.png"
+                                    alt="Cycle global TDD" class="plain w60"></a><br>Par Xarawn — <span class="int-own-work" lang="fr">Travail
+                                personnel
+                            </span>,
+                            <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC
+                                BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=44782737">Lien</a></p>
+                    </section>
+    
+                    <section>
+                        <h3>Avantages du TDD</h3>
+                        <ul>
+                            <li class="fragment">Grande quantité de tests</li>
+                            <li class="fragment">Rassurant</li>
+                            <li class="fragment">Limite le code inutile</li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                        <h3>Inconvénients du TDD</h3>
+                        <ul>
+                            <li class="fgrament">Beaucoup de temps à faire des tests</li>
+                            <li class="fgrament">Il faut maintenir les tests</li>
+                        </ul>
+                        <div class="important-bloc fragment">Avantages >>>> Inconvenients</div>
+                    </section>
+    
+    
+                    <section>
+                        <h2>Les tests unitaires</h2>
+                    </section>
+    
+                    <section>
+                        <h3>Les tests unitaires</h3>
+                        <ul>
+                            <li class="fragment">Vérifie qu'une méthode fait bien ce qu'elle doit faire</li>
+                            <li class="fragment">Cas nominaux (doivent fonctionner)</li>
+                            <li class="fragment">Cas d'erreur (doivent lever une erreur)</li>
+                            <li class="fragment">Cas à la marge (ça dépend)</li>
+                            <li class="fragment">Tests à la charge des développeurs</li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                       <h3>Junit5</h3>
+                       <ul>
+                           <li>Le framework de test le plus récent en java</li>
+                           <li>Besoin de l'ajouter aux dépendances du projet (dans le pom)</li>
+                           <li>Généralement les tests sont dans le dossier test</li>
+                           <li>Utilisation d'annotations</li>
+                       </ul>
+                    </section>
+
+                    <section>
+                        <h3>Ajouter Junit5 à votre projet</h3>
+                        <pre><code data-trim class="language-xml">
+                            <dependency>
+                                <groupId>org.junit.jupiter</groupId>
+                                <artifactId>junit-jupiter</artifactId>
+                                <version>RELEASE</version>
+                                <scope>test</scope>
+                            </dependency>
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <pre><code data-trim class="language-java">
+                            class StandardTests {
+                                @BeforeAll
+                                static void initAll() {
+                                }
+                                @BeforeEach
+                                void init() {
+                                }
+                                @Test
+                                void succeedingTest() {
+                                }
+                                @Test
+                                void failingTest() {
+                                    fail("a failing test");
+                                }
+                                @Test
+                                @Disabled("for demonstration purposes")
+                                void skippedTest() {
+                                    // not executed
+                                }
+                                @Test
+                                void abortedTest() {
+                                    assumeTrue("abc".contains("Z"));
+                                    fail("test should have been aborted");
+                                }
+                                @AfterEach
+                                void tearDown() {
+                                }
+                                @AfterAll
+                                static void tearDownAll() {
+                                }   
+                            }
+                        </code></pre>   
+                    </section>
+
+                    <section>
+                        <h3>Anatomie d'un test</h3>
+                        <p>Deux structures courantes et équivalentes</p>
+                        <ul>
+                            <li>GIVEN WHEN THEN</li>
+                            <li>ARRANGE ACT ASSERT</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Anatomie d'un test</h3>
+                        <ol>
+                            <li>Définition et mise en forme des inputs (GIVEN/ARRANGE)</li>
+                            <li>Réalisation des actions que l'on souhaite tester (WHEN/ACT)</li>
+                            <li>Vérification des assertions (THEN/ASSERT)</li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <pre><code data-trim class="language-java">
+                            class StandardTests {
+                                @Test
+                                void dummyTest() {
+                                    // GIVEN
+                                    int integer1 = 1;
+                                    int integer2 = 3
+                                    // WHEN
+                                    int sum = integer1+integer2
+                                    // THEN
+                                    assertEquals(4, sum)
+                                }
+                            }
+                        </code></pre>
+
+                        <pre><code data-trim class="language-java">
+                            @Test
+                            public void addTopping() {
+                                // GIVEN
+                                Cake cake = new Cake(Ingredient.VANILLA,4);
+                                // WHEN
+                                cake.addTopping(Ingredient.SPARKLE);
+                                // THEN
+                                assertEquals(1, cake.getToppings().size());
+                                assertTrue(cake.getToppings().contains(Ingredient.SPARKLE));  ;
+                            }
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>C'est quoi un bon test unitaire ?</h3>
+                        <ul>
+                            <li class="fragment">Teste qu'UNE chose</li>
+                            <li class="fragment">Le plus isolé possible</li>
+                            <li class="fragment">Un assert "simple"</li>
+                            <li class="fragment">Commenté</li>
+                            <li class="fragment">Maintenable</li>
+                        </ul>
+                        <div class="important-bloc fragment">Fait partie du code et est de la documentation </div>
+                    </section>
+
+                    <section>
+                        <h3>Hands-on 3 👩‍💻👨‍💻: Tests unitaires</h3>
+                        <ul>
+                            <li>Récupérez le code sur git</li>
+                            <li>Codez des tests pour toutes les fonctions</li>
+                            <li>Lancez vos tests</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>La couverture de code</h3>
+                        <ul>
+                            <li class="fragment">Indicateur simple à calculer</li>
+                            <li class="fragment">Combien de ligne sont exécutées via les test</li>
+                            <li class="fragment">Mais pas très fiable</li>
+                            <li class="fragment">Facile de faire des "faux tests"</li>
+                            <li class="fragment">Préférer faire peu de tests utiles que beaucoup inutiles</li>
+                            <li class="fragment"><span class="important">80% des problèmes viennent de 20% du code</span></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Mutation testing</h3>
+                        <ul>
+                            <li>Les tests permettent d'évaluer la qualité du code</li>
+                            <li>Mais qui évalue la qualité des tests ?</li>
+                            <li>Il est facile de faire de faux test</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Mutation testing : le principe</h3>
+                        <ul>
+                            <li>Modifier légèrement le code de l'application (= faire un mutant)
+                                <ul>
+                                    <li>Changer les bornes des conditions &gt devient &th= et inversement</li>
+                                    <li>changer incrément en décrément</li>
+                                    <li>Changer les opérations mathématique</li>
+                                    <li>...</li>
+                                </ul>
+                            </li>
+                            <li>Lancer les tests qui couvrent le code</li>
+                            <li>Si les tests plantent le mutant est tué</li>
+                            <li>Sinon le mutant vie</li>
+                            <li>Et on souhaite qu'aucun mutant ne s'échappe</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Exemple</h3>
+                        <pre><code data-trim class="language-java">
+                            if ( i >= 0 ) {
+                                return "foo";
+                            } else {
+                                return "bar";
+                            }                            
+                        </code></pre>
+                        <p>mute en</p>
+                        <pre><code data-trim class="language-java">
+                            if ( i > 0 ) {
+                                return "foo";
+                            } else {
+                                return "bar";
+                            }                            
+                        </code></pre>
+                        <p>On veux s'assurer qu'au moins un des tests échoue</p>
+                    </section>
+
+                    <section>
+                        <h3>Pitest : un framework java</h3>
+                        <ul>
+                            <li>Compatible Junit4/5</li>
+                            <li>Uniquement à ajouter les dépendances dans le pom.xml pour comportement par défaut</li>
+                            <li>Doc officielle pour plus d'information</li>
+                            <li>En python : <a href="https://github.com/boxed/mutmut">mutmut</a>
+                                (dernière maj 04/11/21)
+                                <a href="https://mutatest.readthedocs.io/en/latest/">mutatest</a>(dernière maj 16/05/20)
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Dépendance maven</h3>
+                                <pre><code data-trim class="language-xml">
+                                    <dependencies>
+                                        <dependency>
+                                            <groupId>org.pitest</groupId>
+                                            <artifactId>pitest-parent</artifactId>
+                                            <version>1.7.3</version>
+                                            <type>pom</type>
+                                        </dependency>       
+                                    </dependencies>                  
+                                </code></pre>
+                    </section>
+                            <section>
+                                <h3>Configuration du build</h3>
+                                <pre><code data-trim class="language-xml">
+                            <build>
+                                <plugins>
+                                    <plugin>
+                                        <groupId>org.pitest</groupId>
+                                        <artifactId>pitest-maven</artifactId>
+                                        <version>1.7.3</version>
+                                        <executions>
+                                            <execution>
+                                                <id>pit-report</id>
+                                                <!-- optional, this example attached the goal into mvn test phase -->
+                                                <phase>test</phase>
+                                                <goals>
+                                                    <goal>mutationCoverage</goal>
+                                                </goals>
+                                            </execution>
+                                        </executions>
+                                        <dependencies>
+                                            <!-- for Juni5 -->
+                                            <dependency>
+                                                <groupId>org.pitest</groupId>
+                                                <artifactId>pitest-junit5-plugin</artifactId>
+                                                <version>0.15</version>
+                                            </dependency>
+                                        </dependencies>
+                        
+                                    </plugin>    
+                                </plugins>
+                            </build>                       
+                                </code></pre>
+
+                    </section>
+
+                    <section>
+                        <h3>Et maintenant ? 🎮</h3>
+                        <ul>
+                            <li>Juste à lancer le goal
+                                <pre>
+                                    <code data-trim>
+                                        mvn test
+                                    </code>
+                                </pre></li>
+                            <li>Allez lire le rapport dans target>pit-reports</li>
+                            <li>Modifier ses tests</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <img src="img/pit-report-index.png" alt="">
+                    </section>
+                    <section>
+                        <img src="img/pit-report-classes.png" alt="">
+                    </section>
+                    <section>
+                        <img src="img/pit-report-details.png" alt="">
+                    </section>
+
+                    <section>
+                        <h3>Hands-on 4 🦠: mutation testing</h3>
+                        <ul>
+                            <li>Mettez en place Pitest dans votre projet</li>
+                            <li>Codez des tests pour toutes les fonctions</li>
+                            <li>Lancez vos tests</li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                        <h3>Une activité à part</h3>
+                        <ul>
+                            <li class="fragment">Test unitaire : pour le dev</li>
+                            <li class="fragment">Les autres : rôle du testeur (responsable qualité) </li>
+                            <li class="fragment">Expertise sur comment mener des tests</li>
+                            <li class="fragment">Indépendant de l'équipe</li>
+                            <li class="fragment">Permet d'éviter les "faux tests"</li>
+                        </ul>
+                    </section>
+    
+    
+                    <section>
+                        <h3>Résumé des tests</h3>
+                        <ul>
+                            <li class="fragment">Tester dés le début</li>
+                            <li class="fragment">Les tests ne sont jamais parfaits</li>
+                            <li class="fragment">Mais c'est mieux que rien</li>
+                            <li class="fragment">Informe sur la qualité de l'application</li>
+                            <li class="fragment">Cas nominal/erreur/marge</li>
+                            <li class="fragment">Structure GIVEN/WHEN/THEN</li>
+    
+                        </ul>
+                    </section>
+                </section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+                height: 1080,
+                width: 1920,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

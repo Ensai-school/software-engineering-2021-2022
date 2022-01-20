@@ -1,0 +1,438 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+        <link rel="stylesheet" href="css/mine.css">
+        
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section>
+                        <h1>Spring Boot</h1>
+                        <img src="https://atomrace.com/blog/wp-content/uploads/2018/05/spring-boot-logo.png" alt="">
+                </section>
+                <section>
+                    <section>
+                        <h3>Le développement web en java</h3>
+                        <p>Complexité de la pile applicative</p>
+                        <ul>
+                            <li>Le modèle MVC</li>
+                            <li>La gestion de la sécurité</li>
+                            <li>L'accès aux données (SQL, NoSQL)</li>
+                            <li>Service cloud</li>
+                            <li>Code boilerplate sans "valeur"</li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                        <h3>Meet Spring</h3>
+                        <ul>
+                            <li>Un framework open source java largement utilisé dans le développement java</li>
+                            <li>Un écosystème Spring complet</li>
+                            <li>Implémente l'injection de dépendances</li>
+                            <li>Gain de temps via configurations et annotations</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>🍃Hands-on 1 : initialiser un projet Spring Boot</h3>
+                        <ol>
+                            <li>Allez sur https://start.spring.io/ créez un projet spring boot.</li>
+                            <li>Lancez le main voir que le code fonctionne.</li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <h3>Anatomie du code minimal</h3>
+                        <ul>
+                            <li>Fichiers maven : pom.xml, mvnm, mvnm.cmd</li>
+                            <li>Les packages classiques
+                                <ul>
+                                    <li>src/main/java : java</li>
+                                    <li>src/main/resources : properties/template</li>
+                                    <li>src/test/java : test</li>
+                                </ul>
+                                </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Anatomie du code minimal</h3>
+                        <pre><code data-trim data-noescape class="language-java">
+package fr.ensai.demo;
+
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Les annotations</h3>
+                        <ul>
+                            <li>Permet de modifier le comportement d'une
+                                classe ou méthode</li>
+                            <li>@SpringBootApplication = 
+                                <ul>
+                                    <li>@SpringBootConfiguration : la classe sera utilisée comme une classe de configuration.</li>
+                                    <li>@EnableAutoConfiguration : active la fameuse fonctionnalité d’autoconfiguration de Spring Boot.</li>
+                                    <li>@ComponentScan : active le “scanning” de classes dans le package de la classe et dans ses sous-packages.</li>
+                                </ul>
+                            </li>
+                            <li>Spring en utilise beaucoup mais ce n'est pas une propre à Spring</li>
+                            <li>Equivalent en python, decorator (!= du pattern)</li>
+                    </section>
+
+                    <section>
+                        <h3>Les annotations</h3>
+
+                        <ul>
+                            <li>@Component : défini un bean Spring</li>
+                            <li>@Qualifier : permet de nommer notre bean</li>
+                            <li>@Autowired : permet d'appeler un bean</li>
+                            <li>@SpringBootApplication : défini une application Spring Boot</li>
+                            <li>D'autres dans le futur</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>🍃Hands-on 2 : Un premier hello world </h3>
+                        <ol>
+                            <li>Créez une classe HelloWorldService qui implémente 
+                                l'interface CommandLineRunner, et surchargez la méthode
+                                à implémenter pour afficher un hello world </li>
+                            <li>Faites de cette classe un beans Spring</li>
+                            <li>Lancez votre application</li>
+                            <li>Que se passe-t-il ?</li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <h3>IoC container/ Application Context</h3>
+                        <ul>
+                            <li>La fonctionnalité principale de Spring</li>
+                            <li>Permet de découpler la création de l'utilisation (proche de la factory)</li>
+                            <li>Code plus évolutif</li>
+                            <li>Se base sur les abstractions</li>
+                            <li>Faible couplage</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Injection de dépendances 1</h3>
+                        <pre><code data-trim data-noescape class="language-java">
+public class Command {
+    private Product product;
+
+    public Command() {
+        this.product = new Product(“something”);
+    }
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Injection de dépendances 2</h3>
+                        <pre><code data-trim data-noescape class="language-java">
+public class Command (
+    private Product product;
+    public Product getProduct() {
+        return product;
+    }
+    public void setProduct(Product product) { 
+    // Passage de produit en paramètre, peu être une ss classe
+        this.product = product;
+    )
+    public Command() { } // Constructeur plus léger
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Bilan</h3>
+                        <ul>
+                            <li>Disparition du new Product</li>
+                            <li>Command doit recevoir un produit</li>
+                            <li>Délégation à une tierce partie (factory)</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Injection de dépendances en Spring</h3>
+                        <ul>
+                            <li>IoC Container</li>
+                            <li>Annotation @Component pour les beans</li>
+                            <li>Annotation @Autowired pour les utilisateurs des beans</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <pre><code data-trim data-noescape class="language-java">
+@Component
+public class FirstBean {
+    public String toString (){
+        return "Hello world"
+    };
+}
+                        </code></pre>
+                            <pre><code data-trim data-noescape class="language-java">
+@SpringBootApplication
+public class DemoApplication {
+    @Autowired
+    private FirstBean firstBean;
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+        System.out.println(firstBean);
+    }
+
+}
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>🍃Hands-on 3 : mes premiers beans</h3>
+                        <ol>
+                            <li>Créez une classe BookService qui contient une liste de livre.
+                                La classe BookService est un bean spring.
+                            </li>
+                            <li>Créez une classe LibraryService. La classe LibraryService
+                                est un bean spring avec un attribut nom.
+                            </li>
+                            <li>Affichez les informations de vos beans.</li>
+                            <li>Est-ce que vos beans sont des singletons ?</li>
+                        </ol>
+                    </section>
+                    </section>
+
+
+                    <section>
+                        <section>
+                            <h2>Faire un webservice avec SpringBoot</h2>
+                        </section>
+
+                        <section>
+                            <h3>Les starters Spring Boot</h3>
+                            <ul>
+                                <li>Collection de dépendances qui ont un but commun</li>
+                                <li>Plus besoin de partir à le recherche des dépendances</li>
+                            </ul>
+                            <pre><code data-trim class="language-xml">
+                                <dependency>
+                                    <groupId>org.springframework.boot</groupId>
+                                    <artifactId>spring-boot-starter-web</artifactId>
+                                </dependency>
+                            </code></pre>
+                        </section>
+
+                        <section>
+                            <h3>Définir des endpoints avec Spring</h3>
+                            <pre><code data-trim class="language-java">
+                                    @RestController
+                                    @RequestMapping("/hello")
+                                    public class HelloWorldController {
+                                        @GetMapping("/world")
+                                        public String helloWorld() {
+                                            return "Hello world";
+                                        }
+                                    }
+                            </code></pre>
+                        </section>
+
+                        <section>
+                            <h3>Définir des endpoints avec Spring</h3>
+                            <ul>
+                                <li>@RestController : bean pour une API Rest</li>
+                                <li>@RequestMapping("") : préfixe des endpoints de la classe</li>
+                                <li>@GetMapping("") : définition d'un endpoint get</li>
+                                <li>@PostMapping, @PatchMapping, @PutMapping, @DeleteMapping : les autres méthodes</li>
+                                <li>Spring sérialise la réponse automatiquement (besoin de getter)</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>🍃Hands-on 4 : mon premier endpoint</h3>
+                            <ol>
+                                <li>Allez sur https://start.spring.io/ et créez un projet spring boot.</li>
+                                <li>Prenez les starter web, h2, postgres et JPA</li>
+                                <li>Créez les packages services, model, controller</li>
+                                <li>Créez une classe Book avec les attributs titre, auteur et éditeur</li>
+                                <li>Créez une classe BookService avec une méthode getBooks qui retourne
+                                    une liste de livre. Vous pouvez la hardcoder pour le moment
+                                </li>
+                                <li>Créez un classe LivreController qui expose un endpoints getBooks
+                                    qui retourne une liste de livre
+                                </li>
+                            </ol>
+                        </section>
+    
+                        <section>
+                            <h2>Communication avec une BDD 💾</h2>
+                            <em>Ou comment rendre trivial le projet de 2A</em>
+                        </section>
+
+                        <section>
+                            <h3>La notion d'ORM</h3>
+                            <ul>
+                                <li>Faire le lien entre base de donné et code est laborieux</li>
+                                <li>Hibernate : Outils générique pour faire le lien pojo-bdd utilisé par Spring</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>Lien entre un objet et une table</h3>
+
+                            <pre><code data-trim class="language-java">
+                                    @Entity
+                                    @Table(name = "employees")
+                                    public class Employee {
+                                    
+                                        @Id
+                                        @GeneratedValue(strategy = GenerationType.IDENTITY)
+                                        private Long id;
+                                    
+                                        @Column(name="first_name")
+                                        private String firstName;
+                                    
+                                        @Column(name="last_name")
+                                        private String lastName;
+                                    
+                                        private String mail;
+                                    
+                                        private String password;
+                                    
+                                    }
+                            </code></pre>
+                        </section>
+
+                        <section>
+                            <h3>Lien entre un objet et une table</h3>
+                            <ul>
+                                <li>Se base sur des annotations</li>
+                                <li>@Entity : annotation pour dire que cet objet est lié à une base</li>
+                                <li>@Table(name = "employees") : nom de la table si différent nom classe</li>
+                                <li>@Column(name="first_name") : nom de la colonne de la table si différent attribut</li>
+                                <li>@Id : cette colonne est une primary key</li>
+                                <li>@GeneratedValue(strategy = GenerationType.IDENTITY) : c'est la base qui gère la clef primaire</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>Création des DAO en 1min</h3>
+                            <ul>
+                                <li>On a maintenant quelque chose qui représente une ligne</li>
+                                <li>Besoin de méthodes pour requêter notre table</li>
+                                <li>Interface CrudRepository &lt entity, ID &gt + annotation @Repository</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>Création des DAO en 1min</h3>
+                            <pre><code data-trim class="language-java">
+                                @Repository
+                                public interface EmployeRepository extends CrudRepository &lt Employee, Long &gt {
+                                }
+                        </code></pre>
+                        <p>Pour un CRUD de base pas besoin de plus de code !!!</p>
+                        </section>
+
+                        <section>
+                            <h3>L'interface CrudRepository</h3>
+                            <a href="https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html">doc officielle</a>
+
+                        </section>
+
+                        <section>
+                            <pre><code data-trim class="language-java">
+                                @Service
+                                public class EmployeeService {
+                                
+                                    @Autowired
+                                    private EmployeRepository employeRepository;
+                                
+                                    public Optional&ltEmployee&gt getEmployee(final Long id) {
+                                        return employeRepository.findById(id);
+                                    }
+                                
+                                    public Iterable&ltEmployee&gt getEmployees() {
+                                        return employeRepository.findAll();
+                                    }
+                                
+                                    public void deleteEmployee(final Long id) {
+                                        employeRepository.deleteById(id);
+                                    }
+                                
+                                    public Employee saveEmployee(Employee employee) {
+                                        Employee savedEmployee = employeRepository.save(employee);
+                                        return savedEmployee;
+                                    }
+                                }
+                        </code></pre>
+                        </section>
+
+                        <section>
+                            <h3>Comment Spring Boot connaît la base ?</h3>
+                            <ul>
+                                <li>Autoconfiguration de SpringBoot</li>
+                                <li>Fichier application.properties</li>
+                            </ul>
+                            <pre><code data-trim>
+                                #H2 Database configuration
+                                database=h2
+                                spring.datasource.schema=classpath*:schema.sql
+                                spring.datasource.data=classpath*:data.sql
+                        </code></pre>
+
+                        <p><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#data.sql.datasource.configuration">
+                            Doc officielle
+                        </a></p>
+                        </section>
+
+
+                        <section>
+                            <h3>🍃Hands-on 5 : un webservice CRUD</h3>
+                            <ol>
+                                <li>Transformer la classe Book en Entity</li>
+                                <li>Créez une classe BookReposiory qui implémente CrudRepository</li>
+                                <li>Book service implémente un CRUD</li>
+                                <li>BookController implémente les bons endpoints
+                                </li>
+                                <li>Utilisez une base h2 pour stockez vos données</li>
+                                <li>Quand vous avez terminé transformer la base h2 en base postgres</li>
+                            </ol>
+                        </section>
+    
+                    </section>
+                </section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+                height: 1080,
+                width: 1920,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

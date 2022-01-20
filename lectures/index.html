@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+
+                    <section>
+                        <h2>Patron composite</h2>
+                    </section>
+
+                    <section>
+                        <h3>Le besoin</h3>
+                        <ul>
+                            <li>Représenter une structure avec une relation parent-enfant</li>
+                            <li>Avec différents types (exemple branche/feuille)</li>
+                            <li>Chaque type à une opération spécifique</li>
+                            <li>Pour l'extérieur, il n'y a qu'un type visible</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Exemple : représentation graphique</h3>
+                        <ul>
+                            <li>Formes géométriques complexes </li>
+                            <li>Une forme peut-être divisée en sous forme</li>
+                            <li>La forme la plus pure est le point</li>
+                        </ul>
+                        
+                    </section>
+
+                    <section>
+                        <h3>Exemple : représentation graphique</h3>
+                        Pour obtenir l'aire d'une forme complexe on va demander l'aire
+                        des sous forme qui la compose. Et ainsi de suite jusqu'à trouver
+                        une forme "élémentaire"
+
+                        <div class="fragment">Approche récursive</div>
+                    </section>
+
+                    <section>
+                        <h3>Schéma UML</h3>
+                        <img src="img/composite.png" alt="">
+                    </section>
+
+                    <section>
+                        <h3>TP : système de fichier</h3>
+                        <p>
+                            Implémentez la code java qui représenter un système de fichier.
+                        </p>
+                        <ul>
+                            <li>Dans notre FS tout est "fichier" (dossiers comme fichiers finaux)</li>
+                            <li>Un fichier est caractérisé par son nom, son path absolu, sa taille</li>
+                            <li>On veut une opération pour déplacer nos fichiers et
+                                connaître la taille totale d'un fichier 
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Mail pour des utilisateurs</h3>
+                        <ul>
+                            <li>Système de messagerie avec groupe et sous groupe (profondeur infini) et des personnes
+                            </li>
+                            <li>Quand on contact un groupe, on veut contacter toutes les personnes qu'il contient</li>
+                        </ul>
+                    </section>
+
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Patron observer</h2>
+                    </section>
+
+                    <section>
+                        <h3>Le besoin</h3>
+
+                        <ul>
+                            <li>Notre système doit réaliser des actions dans certaines conditions</li>
+                            <li>Les actions peuvent être identiques entre plusieurs conditions</li>
+                            <li>On veut que le tout soit le plus indépendant possible</li>
+                            <li>On n'a pas envie que les systèmes qui réaliser les actions filtrent
+                                les événements pour agir quand il faut
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Exemple : station météo</h3>
+                        <ul>
+                            <li>Station météo qui enregistre différentes données</li>
+                            <li>Quand les données changent mise à jour de différents affichages</li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Schéma UML</h3>
+                        <img src="img/observer.png" alt="">
+                    </section>
+                </section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

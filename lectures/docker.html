@@ -1,0 +1,574 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>🐳 Docker</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+        <link rel="stylesheet" href="css/mine.css">
+        
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section>
+                    <img src="https://www.docker.com/sites/default/files/d8/2019-07/vertical-logo-monochromatic.png"
+                     alt=""
+                     class="w50">
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Mise en contexte</h2>
+                    </section>
+
+                    <section>
+                        <h3>La virtualisation</h3>
+                        <p>
+                            1 machines physique = plusieurs machines logiques
+                        </p>
+                        <img src="img/virtualisation.png" alt="" class="w40">
+                    </section>
+
+                    <section>
+                        <h3>La virtualisation</h3>
+                        <p>✅ Avantages</p>
+                        <ul>
+                            <li>Meilleurs utilisation des ressources</li>
+                            <li>Possibilité d'avoir différents OS sur une machine</li>
+                            <li>Simuler un environnement complexe</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>La virtualisation</h3>
+                        <p>😱 Inconvénients</p>
+                        <ul>
+                            <li>Coûteux en ressources (2 OS)</li>
+                            <li>Beaucoup de services inutiles dans un OS</li>
+                            <li>C'est long !</li>
+                            <li>Difficile à répliquer sur des postes de bureau</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Meet Docker 🐳</h2>
+                        <ul>
+                            <li>Première version en 2013 (c'est assez récent)</li>
+                            <li>À la base pour système UNIX, mais maintenant version windows (mais Linux > Mac > Windows)</li>
+                            <li>Permet de résoudre les problèmes de la virtualisation</li>
+                            <li>Principe d'infrastructure as code</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>In a nutshell</h3>
+                        <img src="img/docker.png" alt="" class="w40">
+                    </section>
+
+                    <section>
+                        <h3>Les avantages ✅</h3>
+                        <ul>
+                            <li>Facile de créer une image</li>
+                            <li>Une image se lance rapidement</li>
+                            <li>Plus souple qu'une VM</li>
+                            <li>Orienté 1 container = 1 application</li>
+                            <li>Système de couche</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Les Inconvénients 😱</h3>
+                        <ul>
+                            <li>Demande un coût d'entrée</li>
+                            <li>Rajoute de la complexité au métier de dev/data scientist</li>
+                            <li>Volatilité et gestion du stockage</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Les technos sous jacentes</h3>
+                        <ul>
+                            <li>Namespaces : permet de faire des processus dans
+                                les processus avec des identifiants identiques
+                            </li>
+                            <li>cgroups : cloisonner les ressources (CPU, RAM, disque)</li>
+                            <li>netfilter/iptable : réseau</li>
+                            <li>Linux security module : gestion sécurité appels système</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Hands-on 💻</h3>
+                        <ul>
+                            <li>Ouvrez 2 terminaux</li>
+                            <li>Regarder les processus actifs avec ps -au</li>
+                            <li>Exécutez la commande suivante dans un terminal
+                                <pre><code data-trim data-noescape class="language-shell">
+                                sudo unshare -f -p --mount-proc usr/bin/sh
+                            </code></pre></li>
+                            <li>Regarder les processus actifs avec ps -au dans
+                                les deux terminaux
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Les couches dockers</h3>
+                            <img src="https://c.tenor.com/TXJmqbUeyO8AAAAC/shrek-ogres-have-layers.gif" alt="" style="width:60%">
+                    </section>
+
+                    <section>
+                        <h3>Les couches dockers</h3>
+                        <img src="img/3 appli sans docker.png" alt="" class="w70">
+                    </section>
+
+                    <section>
+                        <h3>Les couches dockers</h3>
+                        <ul>
+                            <li>Duplication d'info</li>
+                            <li>Images artificiellement grosses</li>
+                            <li>Problème de stockage et réseau</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Les couches dockers</h3>
+                        <img src="img/3 appli docker couche.png" alt="" class="w70">
+                    </section>
+
+                    <section>
+                        <h3>Les couches dockers</h3>
+                        <ul>
+                            <li>Mutualisation d'info</li>
+                            <li>Images toujours aussi grosses</li>
+                            <li>Mais possibilité d'utiliser des couches en local</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Les couches dockers</h3>
+                        <img src="img/file system layer.png" alt="" class="w70">
+                    </section>
+                    <section>
+                        <h3>Les couches dockers</h3>
+                        <ul>
+                            <li>Techniquement les systèmes de fichier s'additionne</li>
+                            <li>Mais la couche peut altérer les couches du dessous
+                                 (ajout/suppression/modification)</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Hands on : mon premier container 🐳</h2>
+                        <ul>
+                            <li>Installez Docker : <a href="https://docs.docker.com/engine/install/ubuntu/">doc officielle</a> </li>
+                            <li>Lancez l'image hello-world </li>
+                            
+                        </ul>
+                        <pre><code data-trim data-noescape>
+                        sudo docker container run hello-world   
+                    </code></pre>
+                    </section>
+                    <section>
+                        <h3>Que s'est-il passé ?</h3>
+                        <ol>
+                            <li>Verification si image en local</li>
+                            <li>Récupération de l'image (avec des couches)</li>
+                            <li>Lancement de l'image</li>
+                            <li>Arrêt du container</li>
+                        </ol>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Les bases de docker</h2>
+                    </section>
+
+                    <section>
+                        <h3>Les commandes de base 1</h3>
+                        <pre><code data-trim data-noescape class="language-bash">
+                            #Lancer un container
+                            sudo docker container run [-it] [-p port_local:port_container] [--name container name] [image_name]
+                            
+                            #Voir les container
+                            sudo docker container ps
+                        
+                            #Stopper un container
+                            sudo docker stop [id/name]
+
+                            #Lancer une commande dans un container
+                            sudo docker exec [id/name] [commande]
+
+                            #Rentrer dans un container
+                            sudo docker exec [id/name] -it bash
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Hands on : des containers plus poussés 🐳</h2>
+                        <ul>
+                            <li>Allez sur le site <a href="https://hub.docker.com/search?type=image">docker hub</a>
+                                chercher une image ubuntu et lancez là. Lancez un shell python3 dans ce container.</li>
+                            <li>Aller chercher une image postgres, lancez là et connectez vous à la base
+                                depuis l'outil de votre choix (shell, python, java, pgadmin etc) </li>
+                            </ul>     
+                    </section>
+
+                    <section>
+                        <h3>Les volumes</h3>
+                        <ul>
+                            <li>Actuellement nos containers sont volatiles
+                                <ul>
+                                    <li>Logs applicative ?</li>
+                                    <li>Base de données ?</li>
+                                    <li>Echange de fichiers ?</li>
+                                </ul>
+                            </li>
+                            <li>Possible de faire pointer un dossier d'un container
+                                vers un stockage externe
+                            </li>
+                            <li>S'appelle un volume</li>
+                        </ul>
+                        <pre><code data-trim data-noescape class="language-bash">
+                        sudo docker container run [-v host/path:container/folder[:ro]] [image_name]
+                        </code></pre>
+                    </section>
+
+
+                    <section>
+                        <h2>Hands on : container et volume 💽</h2>
+                        <ol>
+                            <li>Récupérez le code d'un site statique (soit à vous, soit sur Moodle)</li>
+                            <li>Lancer un container nginx avec un volume qui pointe vers votre site
+                                <ul>
+                                    <li>Le dossier dans le container est : /usr/share/nginx/html</li>
+                                    <li>On va donner uniquement les droits en lecture</li>
+                                    <li>Penser à mapper le port 80 du container</li>
+                                    <li>Allez voir la page 127.0.0.1:80</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Créer ses images 🧱</h2>
+                    </section>
+
+                    <section>
+                        <h3>Dockerfile, image et container</h3>
+                        <ul>
+                            <li>Dockerfile : fichier pour dire comment créer une image (recette de cuisine) (~1ko)</li>
+                            <li>Image : une application packagée pour docker (du Ko au Go)</li>
+                            <li>Container : une instance en fonctionnement d'une image</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Le Dockerfile</h3>
+                        <ul>
+                            <li>Suite d'instructions pour créer une image</li>
+                            <li>Commence en réutilisant une image existante</li>
+                            <li>Installation des dépendances nécessaires</li>
+                            <li>Copies des fichiers de l'application</li>
+                            <li>Lancer l'application</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <pre><code data-trim data-noescape class="language-dockerfile">
+                            # Téléchargement de la dernière image python
+                            FROM python:3.8.3-alpine
+                            
+                            # Création de variable d'environnement
+                            ENV PYTHONDONTWRITEBYTECODE 1
+                            ENV PYTHONUNBUFFERED 1
+
+                            # Installation de package nécessaire à lxml
+                            RUN apk add --no-cache --virtual .build-deps gcc libc-dev libxslt-dev && \
+                                apk add --no-cache libxslt && \
+                                pip install --no-cache-dir lxml>=3.5.0 && \
+                                apk del .build-deps  
+                                
+                            # installation du fichier requirements.txt
+                            COPY requirements.txt requirements.txt
+                            RUN pip install -r requirements.txt
+                            
+                            COPY . .
+                              
+                            # Run l'application
+                            CMD ["gunicorn", "mysite.wsgi" , "-b", "0.0.0.0:8000"]
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Du Dockerfile à l'image</h3>
+                        Pour créer une image faire depuis le dossier contenant l'image
+
+                        <pre><code data-trim data-noescape class="language-dockerfile">
+                            docker image build -t myimage:latest .
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Hands on : mon premier docker file 🐳🐘</h2>
+                        <ol>
+                            <li>Créez une image docker dérivée de l'image de postgres
+                                 contenant les données présentes sur Moodle
+                                 (partie Initialization scripts de la doc docker Postgres)</li>
+                            <li>Lancez votre image</li>
+                            <li>Connectez vous au container</li>
+                            <li>Vérifiez que l'image contient bien les données</li>
+                        </ol>
+                        <p>Si vous êtes en avance faite la même chose avec une base mongodb</p>
+                    </section>
+
+                    <section>
+                        <h2>Hands on : docker et python 🐳🐍</h2>
+                        <ol>
+                            <li>Récupérer le code python disponible sur Moodle</li>
+                            <li>Faites la fonctionner en local</li>
+                            <li>Mettez la dans un container docker</li>
+                                <ol>
+                                    <li>Partez de l'image python:3-alpine</li>
+                                    <li>Exécutez l'application au lancement du package avec CMD ou ENTRYPOINT</li>
+                                </ol>
+                            <li>Testez votre image</li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <h2>Hands on : docker et java 🐳🍵</h2>
+                        <ol>
+                            <li>Téléchargez l'application example de spring boot : https://github.com/spring-projects/spring-petclinic</li>
+                            <li>Faites la fonctionner en local</li>
+                            <li>Mettez la dans un container docker</li>
+                                <ol>
+                                    <li>Partez de l'image openjdk:8-jdk-alpine</li>
+                                    <li>Packagez l'application</li>
+                                    <li>Copiez le jar</li>
+                                    <li>Exécutez l'application au lancement du package avec CMD ou ENTRYPOINT</li>
+                                </ol>
+                            <li>Testez votre image</li>
+                        </ol>
+                    </section>
+
+
+                </section>
+
+                <section>
+                    <section>
+                        <img src="https://quintagroup.com/cms/technology/Images/docker-compose-button.jpg" alt="">
+                    </section>
+
+                    <section>
+                        <h3>Les limites de dockers</h3>
+                        <ul>
+                            <li>Déployer une appli 3 tiers (front js, back java, bdd)</li>
+                            <li>3 images dockers, besoin de les déployer dans l'ordre bdd, back, front pour
+                                pouvoir faire les liens entre les containers.
+                            </li>
+                            <li>Besoin de faire les lien à la main</li>
+                        </ul>
+                        <p>On aimerait une macro image de 3 containers</p>
+                    </section>
+
+                    <section>
+                        <h3>Meet Docker Compose</h3>
+                        <quote>
+                            Compose is a tool for defining and running <span class="important">multi-container Docker
+                            applications</span>. With Compose, you use a <span class="important">YAML file</span> to configure your
+                            application’s services. Then, with a <span class="important">single command</span>, you create 
+                            and start all the services from your configuration. To learn more
+                            about all the features of Compose, see the list of features.
+                        </quote>
+                    </section>
+
+                    <section>
+                        <h3>Docker + Docker compose</h3>
+                        <ol>
+                            <li>Docker :
+                                <ul>
+                                    <li>Fichiers Dockerfile</li>
+                                    <li>Plusieurs docker run à faire</li>
+                                </ul>
+                            </li>
+                            <li>Docker Compose
+                                <ul>
+                                    <li>Fichiers Dockerfile</li>
+                                    <li>Un fichier docker-compose.yml</li>
+                                    <li>Un docker compose up à faire</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <pre><code data-trim data-noescape class="language-yaml">
+version: "3.9"
+
+services:
+  service_1:
+    image: tag_image
+    container_name: app1
+    ports:
+      - "port_local:port_container"
+    environment:
+      - var_env1=
+      - var_env2=
+  service2:
+    image: tag_image
+    container_name: app2
+    depends_on : service1
+    ports:
+      - "port_local:port_container"
+    environment:
+      - var_env1=
+      - var_env2=
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Docker et les tests</h2>
+                    </section>
+
+                    <section>
+                        <h3>Docker et les tests</h3>
+                        <ul>
+                            <li>Les applications d'aujourd'hui sont composées de plusieurs
+                                services
+                            </li>
+                            <li>Comment tester de manière isolé une application complexe ?</li>
+                            <li>Se baser sur des services fait exprès ? Bof bof </li>
+                            <li>Créer des containers, c'est mieux mais laborieux</li>
+                            <li>Faire que notre code génère des containers !</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Testcontainer</h3>
+                        <ul>
+                            <li>Existe pour python et java</li>
+                            <li>Permet de lancer un container lors des tests</li>
+                            <li>Et de surcharger la configuration</li>
+                            <li>Permet d'avoir des tests vraiment unitaire</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Testcontainer : dépendances</h3>
+                        <pre><code data-trim class="language-xml">
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>testcontainers</artifactId>
+    <version>1.16.2</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>1.16.2</version>
+    <scope>test</scope>
+</dependency>
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Testcontainer : créer un container</h3>
+                        <pre><code data-trim class="language-java">
+@Container # Annotation pour laisser testcontainer gérer le cycle de vie
+private static PostgreSQLContainer&lt;?&gt; postgresDB = 
+    new PostgreSQLContainer&lt;&gt;("postgres:13.2") //nom de l'image
+        .withDatabaseName("postgres") // passage de variable d'environnement
+        .withUsername("postgres")
+        .withPassword("secret");
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Testcontainer : mettre à jour la configuration</h3>
+
+                        <pre><code data-trim class="language-java">
+                            @Testcontainers
+                            @SpringBootTest
+                            @ContextConfiguration(initializers = {EmployeeServiceTest.Initializer.class})
+                            class EmployeeServiceTest {
+                                @Container
+                                private static PostgreSQLContainer&lt;?&gt; postgresDB = 
+                                    new PostgreSQLContainer&lt;&gt;("postgres:13.2") // nom de l'image
+                                        .withDatabaseName("postgres") // passage de variable d'environnement
+                                        .withUsername("postgres")
+                                        .withPassword("secret");
+                                static class Initializer
+                                        implements ApplicationContextInitializer&lt;ConfigurableApplicationContext&gt; {
+                                    public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+                                        TestPropertyValues.of(
+                                                "spring.datasource.url=" + postgresDB.getJdbcUrl(),
+                                                "spring.datasource.username=" + postgresDB.getUsername(),
+                                                "spring.datasource.password=" + postgresDB.getPassword(),
+                                                "spring.jpa.hibernate.ddl-auto=create-drop" // pour initialiser la base
+                                        ).applyTo(configurableApplicationContext.getEnvironment());
+                                    }
+                                }
+                            </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Testcontainer : Faire un test</h3>
+                        <pre><code data-trim class="language-java">
+                            @Test
+                            void getEmployees() {
+                                // GIVEN
+                                // WHEN
+                                Iterable&lt;Employee&gt; employees = employeeService.getEmployees();
+                                // THEN
+                                assertNotNull(employees);
+                            }
+                            </code></pre>
+                    </section>
+                    <section>
+                        <h3>Testcontainer : Bilan</h3>
+                        <ul>
+                            <li>Décorrélation entre le service de stockage et le code</li>
+                            <li>Uniquement besoin de définir un container</li>
+                            <li>Et de modifier la configuration de Spring Boot</li>
+                            <li>Car il va tout faire lui même</li>
+                            <li>On arrive à avoir rendre étanche nos tests</li>
+                        </ul>
+                    </section>
+                </section>
+
+
+
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+                height: 1080,
+                width: 1920,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

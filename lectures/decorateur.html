@@ -1,0 +1,454 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section>
+                    <h1>Les designs patterns</h1>
+                </section>
+
+                    <section>
+                        <section>
+                            <h2>La vie d'un code</h2>
+                            <img src="https://bpesquet.gitbooks.io/genie-logiciel/content/images/archi-bat.png" alt="">
+                        </section>
+
+                        <section>
+                            <h3>Le conte de fées</h3>
+                            <p>Il était une fois des :</p>
+                            <ul>
+                                <li>Besoins bien définis</li>
+                                <li>Une équipe de dev stable</li>
+                                <li>Des technologies figées</li>
+                                <li>Une application sans maintenance</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>La vrai vie</h3>
+                            Besoin de s'adapter, d'avoir un code ouvert et lisible de <em>tous</em>
+                        </section>
+
+                        <section>
+                            <h3>Merci l'architecture</h3>
+                            <ul>
+                                <li>Concept proposé pour les architectures de bâtiments (Christopher Alexander)</li>
+                                <li>Début d’application aux architectures logicielles en 1987 🧙‍♂️</li>
+                                <li>Visibilité publique en 1994 grâce au livre Ddsign patterns: elements 
+                                    of reusable object-oriented software (GoF)</li>
+                                <li>Redevient populaire suite à l'explosion du numérique 
+                                    et la diversité des profils des dev</li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h3>Pourquoi 🤔</h3>
+                            Validation qualitative des acquis et de la connaissance pratique</p>
+                            <ul>
+                                <li>Vers une « ingénierie » (caractère systématique) du logiciel</li>
+                                <li>Faciliter la réutilisation de savoir faire</li>
+                                <li>Identifier, comprendre et appréhender des solutions récurrentes
+                                    (e.g., API, framework existant)</li>
+                            </ul>
+                                    
+                        </section>
+                        <section>
+                            <h3>Pourquoi 🤔</h3>
+                            <p>Indispensable pour</p> 
+                            <ul>
+                                <li>Réutiliser / étendre / tester l’existant</li>
+                                <li>Construire de nouveaux systèmes logiciels</li>
+                            </ul>
+                        </section>
+                        
+                        <section>
+                            <h3>Réutilisation ♻</h3>
+                            <p>Les langages informatiques modernes orientés objet
+                                permettent la réutilisation</p>
+                            <ul>
+                                <li>par importation de classes</li>
+                                <li>par héritage : extension / spécialisation</li>
+                                <li>par l'inversion de contrôle (aspects)</li>
+                            </ul>
+                        </section>
+                        
+                        <section>
+                            <h3>DP in a nutshell 🥜</h3>
+                            <ul>
+                                <li>Un fragment d’architecture à objets</li>
+                                <li>Une solution « classique » à un problème fréquent</li>
+                                <li>Une solution indépendante des algorithmes</li>
+                                <li>Une solution qui découple les différents problèmes et
+                                    leurs différentes réponses</li>
+                            </ul>
+                              
+                        </section>
+                    </section>
+
+                    <section>
+                        <section>
+                            <h2>Décorateur</h2>
+                            <h3>Ou comment générer des cupcakes</h3>
+                            <img src="https://static.wikia.nocookie.net/mlp/images/b/b2/AiP_Sugarcubecorner.png/revision/latest?cb=20110712100515"
+                            width="70%" alt="">
+                        </section>
+
+                        <section>
+                            <h3>Le besoin</h3>
+                            <p>
+                                La patisserie Sugarcube Corner veut diversifier son offre de
+                                petit gateau à emporter. Voilà ce qu'elle souhaite proposer :
+                            </p>
+                            <ul>
+                                <li>Une patisserie de base : cupcake, popcake, bubble waffle, mini tarte</li>
+                                <li>Des suppléments : glaçage, paillette chocolat, coulis, crème fouettée</li>
+                            </ul>
+
+                            <p class="fragment">Comment faire cela ?</p>
+                        </section>
+
+                        <section>
+
+                        </section>
+
+                        <section>
+                            <h3>Solution 1 </h3>
+                            <p>On créer une classe pour chaque combinaison</p>
+                            <p class="fragment">Définition de l'enfer sur Terre</p>
+                        </section>
+
+                        <section>
+                            <h3>Solution 2</h3>
+                            <p>Super classe avec toutes les variables</p>
+                            <img src="img/bakery.png" alt="">
+                        </section>
+
+                        <section>
+                            <h3>Des problèmes ?</h3>
+
+                            <ul class="fragment">
+                                <li>Changer le prix d'un topping demande de changer le code existant</li>
+                                <li>Nouveau topping demande de changer le code existant</li>
+                                <li>Nouvelles patisseries pas forcément compatibles avec tout les toppings</li>
+                                <li>Si on faut un double nappage chocolat ?</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>Open/Close principle</h3>
+                            <p>Une classe doit être ouverte à l'extension mais fermé à la modification</p>
+
+                            <p class="fragment">Pour ajouter une fonctionnalité on doit seulement
+                                ajouter du nouveau code mais pas en modifier de l'ancien
+                            </p>
+
+                            <p class="fragment">Impossible à faire dans 100% des cas il faut arbitrer 🙃</p>
+                        </section>
+
+                        <section>
+                            <h3>Des idées ?</h3>
+
+                            Prenez 20 min pour coder une solution
+
+                        </section>
+
+                        <section>
+                            <h3>
+                                Le pattern decorator
+                            </h3>
+                            <img src="https://3.bp.blogspot.com/-A-uVQjcedNo/Wy4u2RPjN0I/AAAAAAAACko/uP5_SWLVDNEOQhcGZ2QuyWw_IPI5kJB7gCLcBGAs/s1600/decorator-diagram.PNG" alt="">
+                        </section>
+
+                        
+                        <section>
+                            <h3>Let's code</h3>
+                            Utiliser ce pattern pour résoudre le problème                 
+                        </section>
+
+                        <section>
+                            <h3>Un exemple java.io</h3>
+                            <img src="https://i.imgur.com/e1FtVTr.png" alt="">
+                        </section>
+
+                        <section>
+                            <h3>Un exemple java.io</h3>
+                            Créez trois nouveau java I/O decorator
+                            <ul>
+                                <li>Un qui retourne un texte tout en minuscule</li>
+                                <li>Un qui retourne un texte tout en majuscule</li>
+                                <li>Un qui applique un codage cesar dessus</li>
+                            </ul>
+                        </section>
+
+                    </section>
+                    
+                    <section>
+                        <section>
+                            <h2>Les factory</h2>
+                            <h3>Ou comment cuisiner des pizzas </h3>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Pizza_Margherita_stu_spivack.jpg"
+                            width="70%" alt="">
+                        </section>
+
+                        <section>
+                            <h3>Le besoin</h3>
+                            <p>
+                                Vous êtes en train de monter votre système de vente en ligne de pizza.
+                                Lorsque l'utilisateur clique sur une pizza vous allez générer un objet
+                                pizza dans votre SI.
+                            </p>
+                            <p class="framgment"> Implémentez une classe PizzaStore qui permet de créer des pizzas selon
+                                un paramètre passé. Vous utiliserez le fichier Pizza base code disponible sur Moodle
+                            </p>
+                        </section>
+
+                        <section>
+                            <h3>Un code stable ?</h3>
+                            <ul>
+                                <li>Que ce passe-t-il si on change le menu ?</li>
+                                <li>Que ce passe-t-il si on a besoin de créer des pizzas ailleurs ?</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>🤔 Des idées ? 💡</h3>
+                        </section>
+
+                        <section>
+                            <h3>Simple Factory Pattern</h3>
+                            <p>Externalise la création des pizzas dans une autre classe</p>
+                            <img src="https://www.oreilly.com/library/view/head-first-design/0596007124/figs/web/119fig01.png.jpg" 
+                            style="width:70%"alt="">
+                        </section>
+
+                        <section>
+                            <h3>Simple Factory Pattern</h3>
+                            <p>Mettez à jour votre code pour implémentez ce pattern</p>
+                        </section>
+
+
+                        <section>
+                            <h3>Checkpoint</h3>
+                            <p>On essaye au maximum de cacher l'utilisation de new</p>
+                            <ul>
+                                <li>new = un objet concret, source de couplage</li>
+                                <li>Si choix on veut centraliser code</li>
+                                <li>Déléguer la responsabilité à la bonne personne</li>
+                            </ul>
+
+                        </section>
+
+                        <section>
+                            <h3>Des franchises</h3>
+                            <p>
+                                Comment créer plusieurs pizzerias, chacun avec ses spécificités ?
+                            </p>
+                            <ul>
+                                <li>Par héritage</li>
+                                <li>Par composition</li>
+                            </ul>
+                            <p>Choisissez une solution et mettez la en place</p>
+                        </section>
+
+                        <section>
+                            <h3>Des franchises</h3>
+                            Avantages et inconvénients des deux solutions ?
+                        </section>
+
+                        <section>
+                            <h3>The factory method</h3>
+
+                            <img src="https://www.oreilly.com/library/view/head-first-design/0596007124/figs/web/134fig01.png.jpg"
+                            style="width:70%" alt="">
+
+                        </section>
+
+                        <section>
+                            <h3>In a nutshell 🥜</h3>
+                            Le patron Factory Method défini une <em>interface</em> pour créer
+                            des objets, mais laisse les classes enfants définir comment les
+                            instancier. Factory Method permet de déléguer l'instanciation aux
+                            classes enfants
+                        </section>
+
+                        <section>
+                            <h3>Diagramme pur</h3>
+                            <img src="https://www.oreilly.com/library/view/head-first-design/0596007124/figs/web/136fig01.png.jpg" alt="">
+                        </section>
+
+                        <section>
+                            <h3>☯ Inversion de dépendance</h3>
+                            Dépendre des abstractions et non des implémentations concrètes
+                        </section>
+                        
+
+                    </section>
+
+                    <section>
+                        <section>
+                            <h2>Singleton</h2>
+                            <h3>Un objet pour les gouverner tous</h3>
+                        </section>
+
+                        <section>
+                            <h3>Réfléchissons ensemble</h3>
+                            <p>
+                                Comment créer une classe avec une seule instance ?
+                            </p>
+                            <ul>
+                                <li class="fragment">Comment créez vous une instance ?</li>
+                                <li class="fragment">Comment définissez vous un constructeur ?</li>
+                                <li class="fragment">Quelle est la visibilité du constructeur ?</li>
+                                <li class="fragment">Comment instancier un objet unique à partir de là ?</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>Singleton Pattern</h3>
+                            <img src="https://fjp.at/assets/pages/design-patterns/singleton-pattern.png" alt="">
+                            <p>Implémentez un singleton, et tester que vous ne pouvez pas créer plusieurs instances</p>
+                        </section>
+
+                        <section>
+                            <h3>Un peu de multithreading</h3>
+                            <p>2 objets java</p>
+                            <ul>
+                                <li>(Interface) Runnable : définit le comportement (méthode run)</li>
+                                <li>(Classe) Thread : contient un runnable et permet de le gérer</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>Multithreading et singleton</h3>
+                            <p>
+                                Créez de manière simultané plusieurs singletons voir ce qu'il
+                                se passe
+                            </p>
+                        </section>
+
+                        <section>
+                            <h3>Thread Safe singleton</h3>
+                            Mot clef synchronized
+                        </section>
+
+                        <section>
+                            <h3>Singleton use case</h3>
+                            <p>Gestion de ressources coûteuses ou que l'on ne
+                                veut pas dupliquer inutilement
+                            </p>
+                            <ul>
+                                <li>Connexion à une base de donnée</li>
+                                <li>Des simples factory</li>
+                                <li>La gestion du cache</li>
+                                <li>La gestion des loggers</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>Singleton use case</h3>
+                            <p>Dans la vraie vous allez rarement faire un 
+                                singleton vous même, mais utiliser des frameworks
+                                pour.
+                            </p>
+                            <p class="fragment">Mais savoir comment cela fonctionne
+                                est toujours intéressant intellectuellement.
+                            </p>
+                        </section>
+
+                    </section>
+
+
+                    <section>
+                        <section>
+                            <h2>Command Pattern</h2>
+                            <h3>Une API pour controller plusieurs éléments différents</h3>
+                        </section>
+
+                        <section>
+                            <h3>Le contexte</h3>
+                            <ul>
+                                <li>Récupérer le code sur Moodle</li>
+                                <li>Comment contrôler facilement tous les appareils ? </li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>Encapsuler le contrôle</h3>
+                            Le commande Pattern encapsule une requête comme un objet, ce qui permet
+                            de créer plusieurs requêtes pour différents objets mais en ayant pour
+                            tous une interface commune
+                        </section>
+                        
+                        <section>
+                            <h3>Command Pattern</h3>
+                            <img src="https://i.stack.imgur.com/ATk24.png" 
+                            style="width:80%" alt="">
+                        </section>
+
+                        <section>
+                            <h3>Le cas du multi threading</h3>
+                            <ul>
+                                <li>Runnable est la Command</li>
+                                <li>Les classe qui en hérite sont les ConcreteCommands</li>
+                                <li>Un thread est l'Invoker</li>
+                                <li>Les objets modifiés sont les receivers</li>
+                            </ul>
+                            
+                        </section>
+
+                        <section>
+                            <h3>To do</h3>
+                            <ul>
+                                <li>Créez une classe/interface Command </li>
+                                <li>Receiver = light, garage door, stereo etc</li>
+                                <li>Créez des commandes concrètes on/off pour chaque receiver (limitez vous à 3)</li>
+                                <li>Invoker = une télécommande qui stock les commandes (commencez avec une)</li>
+                                <li>Client = une classe qui voit les receiver, et qui communique avec eux via l'invoker</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3>To do 2 </h3>
+                            <ul>
+                                <li>Comment faire une télécommande avec plusieurs commande ?</li>
+                                <li>Comment faire un undo ?</li>
+                                <li>Possibilité de limiter le nombre de classe ?</li>
+                            </ul>
+                        </section>
+                    </section>
+
+
+
+
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

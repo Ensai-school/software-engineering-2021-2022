@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+              <section>
+                  <h1>🥋Coding dojo🥋</h1>
+                  <h2>Rock Gadget Rigid</h2>
+
+              </section>
+
+              <section>
+                  <h3>🥋 Coding dojo 🥋</h3>
+                  <p>
+                      Façon ludique et différente d'apprendre. Un problème commun que vous
+                      allez essayer de résoudre.
+                  </p>
+                  <ul>
+                      <li>Par équipe de 2-3 🧙‍♂️👨‍🔬👩‍🏭</li>
+                      <li>Les échanges entre équipe sont autorisés</li>
+                      <li>Celui qui code n'est qu'un exécutant 🔨</li>
+                      <li>Éléments perturbateurs 🎃</li>
+                  </ul>
+
+              </section>
+
+              <section>
+                  <h3>🐱‍👤 Rock Gadget Rigid 🔫</h3>
+                  <h4>Contexte</h4>
+                  <p>Vous travaillez pour Hide Oko Jima un game designer qui veut révolutionner le jeu d'infiltration pour 
+                    Numeric Creation. Vous travaillez dans l'équipe de développement du comportement de l'IA du jeu.
+                  </p>
+              </section>
+
+              <section>
+                <h3>Le besoin</h3>
+                <p>Les gardes de notre jeux doivent</p>
+                <ul>
+                    <li>Avoir une jauge de suspicion</li>
+                    <li>La jauge de détection augmente de 1 si le garde entend le joueur et de 10 s'il le voit.</li>
+                    <li>Le garde devient actif quand la jauge de détection est à 30</li>
+                    <li>Quand un garde est passif son action est de rester sur place, et quand il est actif il tire sur
+                        le joueur s'il le voit et cours vers lui s'il l'entend.
+                    </li>
+                </ul>
+                <b class="fragment">À vous de jouer</b>
+              </section>
+
+
+              <section>
+                <h3>📢Message du game designer 🎨</h3>
+                    "Il faudrait qu'un garde puisse devenir suspicieux avant d'être actif. Il chercherait
+                    activement le joueur. Ainsi il se déplacerait à la recherche du joueur et s'il le voit
+                    deviendrait directement actif. Tous les tours, s'il ne le voit pas il perd de la suspicion
+                    et une fois à 0 il redeviendrait passif"
+              </section>
+
+              <section>
+                <h3>📢Retour d'une phase de test 🎮</h3>
+                    "Si on tire sur un garde il ne réagit pas ! Il faudrait le rendre actif, et s'il
+                    est déjà actif il localise le joueur et lui tire dessus. Et un garde passif devrait
+                    perdre sa suspicion mais plus rapidement qu'un garde actif"
+              </section>
+
+              <section>
+                <h3>📢Message du game designer 🎨</h3>
+                    "J'ai eu dans la nuit une super idée ! On va ajouter une mécanique pour déstabiliser les gardes,
+                    comme faire du bruit avec un objet. Le garde irait vers le bruit, mais sans avoir augmenter sa suspicion.
+                    Mais s'il voit le joueur il deviendrait suspicieux directement. Après 5 tours, un garde perdrait sa confusion"
+              </section>
+
+              
+              <section>
+                <h3>📢 Message des RH 👩‍💼</h3>
+
+                <p class="fragement"> Mise en place de la réorganisation des équipes
+                </p>
+                <p class="fragment">Échange d'un membre entre les équipes</p>
+            </section>
+
+              <section>
+                <h3>📢Retour d'une phase de test 🎮</h3>
+                    "Alors on s'est rendu compte que les gardes actifs ne contaminent pas les gardes passifs et c'est pas logique
+                    Donc il faudrait que quand un garde voit un garde actif il le deviennent. Et que s'il était suspicieux il
+                    tire sur le joueur directement"
+              </section>
+
+              <section>
+                <h3>📢Message du département marketing 📈</h3>
+                "C'est possible d'avoir une démo du programme ? On finis notre café est on arrive dans 15 min"
+              </section>
+
+              <section>
+                  <h3>La démo 👨‍💻👩‍💻</h3>
+              </section>
+
+              <section>
+                  <h3>Vos retours</h3>
+              </section>
+
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
