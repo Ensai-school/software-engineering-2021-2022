@@ -625,7 +625,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                         <h3>La couverture de test</h3>
                         <ul>
                             <li class="fragment">Indicateur simple à calculer</li>
-                            <li class="fragment">Combien de ligne sont exécutées via les test</li>
+                            <li class="fragment">Combien de lignes sont exécutées via les tests</li>
                             <li class="fragment">Mais pas très fiable</li>
                             <li class="fragment">Facile de faire des "faux tests"</li>
                             <li class="fragment">Préférer faire peu de tests utiles que beaucoup inutiles</li>
@@ -639,13 +639,13 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                             <li>Récupérez le code sur git (lien du dépôt sur moodle, branche code-to-test)</li>
                             <li>Ajoutez la dépendance à Junit5</li>
                             <li>Codez des tests pour toutes les fonctions</li>
-                            <li>Allez de votre votre couverture de test(target/site/jacoco/index)</li>
                             <li>Lancez vos tests</li>
+                            <li>Allez de votre votre couverture de test (target/site/jacoco/index) et améliorez la si besoin</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3>Mutation testing</h3>
+                        <h3>Mutation testing 🦠</h3>
                         <ul>
                             <li>Les tests permettent d'évaluer la qualité du code</li>
                             <li>Mais qui évalue la qualité des tests ?</li>
@@ -658,15 +658,15 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                         <ul>
                             <li>Modifier légèrement le code de l'application (= faire un mutant)
                                 <ul>
-                                    <li>Changer les bornes des conditions &gt devient &th= et inversement</li>
-                                    <li>changer incrément en décrément</li>
+                                    <li>Changer les bornes des conditions &gt devient &gt;= et inversement</li>
+                                    <li>Changer incrément en décrément</li>
                                     <li>Changer les opérations mathématique</li>
                                     <li>...</li>
                                 </ul>
                             </li>
                             <li>Lancer les tests qui couvrent le code</li>
                             <li>Si les tests plantent le mutant est tué</li>
-                            <li>Sinon le mutant vie</li>
+                            <li>Sinon le mutant s'échappe</li>
                             <li>Et on souhaite qu'aucun mutant ne s'échappe</li>
                         </ul>
                     </section>
@@ -780,8 +780,8 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                         <h3>Hands-on 4 🦠: mutation testing</h3>
                         <ul>
                             <li>Mettez en place Pitest dans votre projet</li>
-                            <li>Codez des tests pour toutes les fonctions</li>
-                            <li>Lancez vos tests</li>
+                            <li>Regarder combien de mutants s'échappent</li>
+                            <li>Améliorez vos tests pour tous les éliminer</li>
                         </ul>
                     </section>
     

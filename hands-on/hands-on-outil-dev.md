@@ -97,9 +97,69 @@ class StandardTests {
         assertEquals(4, sum)
     }
 }{% endhighlight %} 
-### Mes premiers tests unitaires
+
+### Mes premiers tests unitaires 🟢🔴
 
 1. Récupérer la branche `code-to-test` du dépôt git du cours
-2. Ajouter une dépendance à Junit5
+2. Ajouter une dépendance à `Junit5`
 3. Codez différents tests et lancez les avec `mvn test`
 4. Quand vous pensez avoir fait suffisamment de tests allez dans le dossier `target/site/jacoco` et ouvrez la page `index.html`. Regardez votre couverture de test et améliorez la si besoin
+
+### Le mutation testing 🦠
+
+Si les tests s'assurent de la qualité du code qui s'assurent de la qualité des tests ?
+En effet il est facile de faire de faux tests, ou du moins des tests qui acceptent plus de cas que l'on ne le croit. Le *mutation testing* permet dans une certaines mesurer de tester nos tests.
+
+Le principe du mutation testing est de voir si au moins un test échoue après avoir modifié légèrement le code.
+Ces modifications sont infimes, un `+` devient un `-`, un `>`; devient un `>=`, un `true` devient `false` et on pour but si nos tests arrivent à nous prévenir d'un léger changement de comportement.
+Si un test échoue, on dit que le mutant est tué, sinon il est en vie. Un mutant en vie nous alerte sur la qualité de nos tests.
+
+Il existe en Java l'outil [Pitest](https://pitest.org/) qui permet de réaliser le mutation testing de notre application. Il suffit juste d'ajouter une dépendance à Pitest dans notre projet et de relancer nos tests.
+
+{% highlight xml %}
+<dependencies>
+    <dependency>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-parent</artifactId>
+        <version>1.7.3</version>
+        <type>pom</type>
+    </dependency>       
+</dependencies> 
+{% endhighlight %} 
+
+Ainsi qu'une nouvelle phase de build
+
+{% highlight xml %}
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-maven</artifactId>
+            <version>1.7.3</version>
+            <executions>
+                <execution>
+                    <id>pit-report</id>
+                    <!-- optional, this example attached the goal into mvn test phase -->
+                    <phase>test</phase>
+                    <goals>
+                        <goal>mutationCoverage</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <dependencies>
+                <!-- for Juni5 -->
+                <dependency>
+                    <groupId>org.pitest</groupId>
+                    <artifactId>pitest-junit5-plugin</artifactId>
+                    <version>0.15</version>
+                </dependency>
+            </dependencies>
+        </plugin>    
+    </plugins>
+</build>{% endhighlight %} 
+
+### À vous de jouer
+
+1. Ajoutez une dépendance à `Pitest` dans votre projet
+2. Lancez les tests et regardez combien de mutant se sont échappés
+3. Tuez tous les mutants
