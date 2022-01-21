@@ -22,7 +22,7 @@ Le cours présente une introduction aux modèles de conception classiques, base 
 ## Supports de cours
 
 - Design pattern :
-  - [🍬 Machine à bonbon](lectures/coding%20dojo%201.html)
+  - [🍬 Coding dojo Machine à bonbon](lectures/coding%20dojo%201.html)
   - [🐱‍👤 Coding dojo jeu d'infiltration](lectures/coding%20dojo%202.html)
   - [🧁Décorateur, 🍕factory , 🏆singleton](lectures/decorateur.html)
 - [🧰 Outils pour le développeur ou data engineer](lectures/outils_dev.html)

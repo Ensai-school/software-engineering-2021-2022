@@ -4,7 +4,7 @@
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
     {%- assign titles_size = site.pages | map: 'title' | join: '' | size -%}
-    <a ><img src="https://ensai-school.github.io/software-engineering-2021-2022/img/ensai_logo_transparent.png" alt="" class="site-logo"></a>
+    <a ><img src="{{ "/assets/img/ensai_logo_transparent.png" | prepend: site.baseurl }}" alt="" class="site-logo"></a>
     <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
 
     {%- if titles_size > 0 -%}
