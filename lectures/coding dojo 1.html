@@ -18,8 +18,9 @@
 			<div class="slides">
               <section>
                   <h1>🥋Coding dojo🥋</h1>
-                  <h2>Rock Gadget Rigid</h2>
-
+                  <h2>The Mighty gumball machine</h2>
+                  <img src="https://giftstomorrow.co.uk/wp-content/uploads/2021/10/Gumball-Machine-MAIN.jpg" alt="Une machine à bonbon"
+                  style="width: 45%;">
               </section>
 
               <section>
@@ -38,48 +39,55 @@
               </section>
 
               <section>
-                  <h3>🐱‍👤 Rock Gadget Rigid 🔫</h3>
+                  <h3>🍬 The Mighty gumball machine 🍬</h3>
                   <h4>Contexte</h4>
-                  <p>Vous travaillez pour Hide Oko Jima un game designer qui veut révolutionner le jeu d'infiltration pour 
-                    Numeric Creation. Vous travaillez dans l'équipe de développement du comportement de l'IA du jeu.
+                  <p>Vous travaillez pour ACME Corporation et votre entreprise a décidé de remettre
+                      au goût du jour les machines à bonbon. En tant que dev vous avez la charge
+                      de développer la partie software de la machine à bonbon
                   </p>
               </section>
 
               <section>
                 <h3>Le besoin</h3>
-                <p>Les gardes de notre jeux doivent</p>
+                <p>Notre machine doit :</p>
                 <ul>
-                    <li>Avoir une jauge de suspicion</li>
-                    <li>La jauge de détection augmente de 1 si le garde entend le joueur et de 10 s'il le voit.</li>
-                    <li>Le garde devient actif quand la jauge de détection est à 30</li>
-                    <li>Quand un garde est passif son action est de rester sur place, et quand il est actif il tire sur
-                        le joueur s'il le voit et cours vers lui s'il l'entend.
-                    </li>
+                    <li>Connaître son stock de bonbons</li>
+                    <li>Pouvoir être rechargée en bonbon (méthode refill)</li>
+                    <li>Délivrer un bonbon quand on tourne la manivelle (méthode turnCrank())</li>
                 </ul>
                 <b class="fragment">À vous de jouer</b>
               </section>
 
 
               <section>
-                <h3>📢Message du game designer 🎨</h3>
-                    "Il faudrait qu'un garde puisse devenir suspicieux avant d'être actif. Il chercherait
-                    activement le joueur. Ainsi il se déplacerait à la recherche du joueur et s'il le voit
-                    deviendrait directement actif. Tous les tours, s'il ne le voit pas il perd de la suspicion
-                    et une fois à 0 il redeviendrait passif"
+                <h3>📢Message du département marketing 📈</h3>
+                    "Il faut que les utilisateurs puissent mettre des pièces dans
+                    la machine. Pour faire un tour il faut une pièce de 20centime.
+                    Et il faut que l'utilisateur puisse éjecter la pièce.""
               </section>
 
               <section>
-                <h3>📢Retour d'une phase de test 🎮</h3>
-                    "Si on tire sur un garde il ne réagit pas ! Il faudrait le rendre actif, et s'il
-                    est déjà actif il localise le joueur et lui tire dessus. Et un garde passif devrait
-                    perdre sa suspicion mais plus rapidement qu'un garde actif"
+                <h3>📢Message du département produit 🔩</h3>
+                    "On est pas sûr de la qualité du matériel du fabriquant chinois. Si
+                    un utilisateur tourne 3 fois la manivelle sans avoir mis de pièce
+                    on veut que vous la bloquiez jusqu'à ce qu'il mette une pièce. On va voir
+                    avec le fabriquant s'il peut gérer ça pour la v2 de la machine"
               </section>
 
               <section>
-                <h3>📢Message du game designer 🎨</h3>
-                    "J'ai eu dans la nuit une super idée ! On va ajouter une mécanique pour déstabiliser les gardes,
-                    comme faire du bruit avec un objet. Le garde irait vers le bruit, mais sans avoir augmenter sa suspicion.
-                    Mais s'il voit le joueur il deviendrait suspicieux directement. Après 5 tours, un garde perdrait sa confusion"
+                <h3>📢 Message du département marketing 📈</h3>
+                    "On vient de lire un étude sur l'addiction et on a trouver
+                    un super moyen pour faire que nos utilisateurs ne se lassent pas.
+                    Quand ils tournent la manivelle on veut que par moment rien ne
+                    tombe avec la musique de la boule noire de Motus, qu'à d'autres
+                    un bonbon tombe et qu'enfin de temps en temps tombe 3 bonbons"
+              </section>
+
+              <section>
+                  <h3>📞Appel du CEO 😱</h3>
+
+                  <p class="fragement">On oublie le cas où rien ne tombe !!! 
+                  </p>
               </section>
 
               
@@ -92,10 +100,17 @@
             </section>
 
               <section>
-                <h3>📢Retour d'une phase de test 🎮</h3>
-                    "Alors on s'est rendu compte que les gardes actifs ne contaminent pas les gardes passifs et c'est pas logique
-                    Donc il faudrait que quand un garde voit un garde actif il le deviennent. Et que s'il était suspicieux il
-                    tire sur le joueur directement"
+                    <h3>📢Message du département produit 🔩</h3>
+                        "Bon on a vu avec l'usine, c'est bon, plus besoin de bloquer la manivelle.
+                        Par contre on peut gérer des pièces de 50c, 1€ et 2€ maintenant. 50c = 3 bonbons,
+                        1€ = 7 et 2€ = 15. S'il reste pas assez de bonbon, tant pis. Et chaque bonbon
+                        déclenche la routine aléatoire des marketeux."
+              </section>
+
+              <section>
+                <h3>📢Message du département produit 🔩</h3>
+                "Bon alors on est désolé mais vous pouvez remettre en place  le blocage de la manivelle
+                s'il vous plait ? On a des remontés comme quoi elle continue à casser au bout d'un moment"
               </section>
 
               <section>

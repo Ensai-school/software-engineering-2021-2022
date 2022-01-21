@@ -65,11 +65,11 @@
                     <section>
                         <h3>Les objectifs</h3>
                         <ul>
-                            <li>Rendre transparente les tâches de build</li>
-                            <li>Uniformisation des outils</li>
-                            <li>Standardisation des pratiques de dev</li>
+                            <li>Rendre transparentes les tâches de build (cycle de vie maven)</li>
+                            <li>Uniformisation des outils (plugin maven, ligne de commande)</li>
+                            <li>Standardisation des pratiques de dev (convention over configuration)</li>
                             <li>Limiter le temps de formation des juniors</li>
-                            <li>Limiter l'impact de l'hétérogénéité des configs</li>
+                            <li>Limiter l'impact de l'hétérogénéité des configs personnelles</li>
                             <li>Se concentre sur l'écriture de code</li>
                         </ul>
                     </section>
@@ -85,29 +85,87 @@
                     </section>
 
                     <section>
+                        <h3>Cycle de vie java : compilation/exécution</h3>
+                        <ul>
+                            <li>Java est un langage qui doit être compilé en bytecode puis
+                                interprété par la JVM
+                            </li>
+                            <li>Besoin de deux instructions
+                                <ol>
+                                    <li>Compilation : javac</li>
+                                    <li>Exécution : java</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Cycle de vie java : dépendances externes</h3>
+                        <ul>
+                            <li>Un projet à souvent des dépendances externes 🧳</li>
+                            <li>Mais elles sont déjà compilées (.jar) 📦</li>
+                            <li>Donc ne peuvent pas l'être à nouveau 🤔</li>
+                            <li>Mais sont nécessaire pour l'application 😱</li>
+                            <li>Besoin d'ajouter ces dépendance au classpath</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Classpath</h3>
+                        <cite>
+                            Classpath est un paramètre passé à une machine virtuelle Java
+                            qui définit le chemin d'accès au répertoire où se trouvent les
+                            classes et les packages Java afin qu'elle les exécute.
+
+                            Au sein de la machine virtuelle, c'est le chargeur de classe
+                            qui parcourt les répertoires spécifiés par le classpath pour
+                            trouver où sont installées les classes requises par un programme Java. 
+                        </cite>
+                    </section>
+                    <section>
+                        <h3>Cycle de vie java : jar</h3>
+                        <ul>
+                            <li>Pas toujours évident de livrer une application
+                                contenant plusieurs centaines de fichiers .java
+                                et des dépendances externes
+                            </li>
+                            <li>Besoin de packager tout ça</li>
+                            <li>Deux grand format : jar, war</li>
+                            <li>Basiquement des archives de fichiers avec des metadata
+                            </li>
+                            <li>Dans le cas d'un jar les metadata sont dans un fichier
+                                MANIFEST.MF
+                            </li>
+                        </ul>
+                        <pre style="width: 100%;"><code data-trim data-noescape class="language-txt">
+Manifest-Version: 1.0
+Main-Class: ClassWithMainMethod
+Class-Path: useful jars
+                        </code></pre>
+                    </section>
+                    <section>
                         <h3>Cycle de vie java</h3>
                         <ol>
                             <li>Ecriture de code</li>
                             <li>Compilation du code :<pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
-javac -cp [external jars] [file1, file2...]
+javac [-cp external jars] [file1, file2...]
                                 </code></pre> </li>
                             <li>Lancer le code : 
                                 <pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
-java -cp [external jars] [main file] 
+java [-cp external jars] [main file] 
                             </code></pre> </li>
                             <li>Création d'un jar : 
                                 <pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
-jar -cm [path.to.MANIFEST] [file1.class, file2.class]
+jar cmf [path.to.MANIFEST] [file1.class, file2.class]/[*.class]
                             </code></pre> </li>
                             <li>Lancer un jar : 
                                 <pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
-java jar -cm [path.to.MANIFEST] [file1.class, file2.class]
+java jar [path.to.jar]
                             </code></pre> </li>
                         </ol>
                     </section>
 
                     <section>
-                        <h3>Hands-on 1.0 ☕: java sans rien</h3>
+                        <h3>Hands-on 1.1 ☕: une classe basique</h3>
                         <ul>
                             <li>Créez une class App avec un main qui print un hello world</li>
                             <li>Compilez cette classe via le terminal</li>
@@ -117,25 +175,15 @@ java jar -cm [path.to.MANIFEST] [file1.class, file2.class]
                     </section>
 
                     <section>
-                        <h3>Hands-on 1.1 ☕: java sans rien 2</h3>
+                        <h3>Hands-on 1.2 ☕: dépendances externes</h3>
                         <ul>
                             <li>Récupérez le code sur Moodle</li>
-                            <li>Compilez les classe</li>
+                            <li>Compilez les classes</li>
                             <li>Lancez App.class</li>
                             <li>Faites-en un jar exécutable et lancez le</li>
                         </ul>
                     </section>
 
-                    <section>
-                        <h3>Hands-on 1.2 ☕: java sans rien 3</h3>
-                        <ul>
-                            <li>Récupérer le code sur Moodle</li>
-                            <li>Compilez les classe</li>
-                            <li>Lancez App.class</li>
-                            <li>Faites-en un jar exécutable et lancez le</li>
-                        </ul>
-                    </section>
-                    
                     <section>
                         <h3>Meet Maven 🐦</h3>
                         Apache Maven is a <span class="important">software project management
@@ -143,6 +191,40 @@ java jar -cm [path.to.MANIFEST] [file1.class, file2.class]
                         Based on the concept of <span class="important">a project object model (POM)</span>
                         , Maven can manage a <span class="important">project's build, reporting and documentation</span>
                         from a <span class="important">central piece of information</span>.
+                    </section>
+
+                    <section>
+                        <h3>Générer un projet maven</h3>
+                        <ol>
+                            <li>Vérifier que vous avez maven d'installé</li>
+                            <li>
+                                <pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
+mvn -B archetype:generate   -DgroupId=com.mycompany.app 
+                            -DartifactId=my-app 
+                            -DarchetypeArtifactId=maven-archetype-quickstart 
+                            -DarchetypeVersion=1.4
+                                </code></pre>
+                            </li>
+                            <li>
+                                Génère un pom.xml basique et l'arborescence classique maven
+                                <pre style="width: 100%;"><code data-trim data-noescape class="language-shell">
+                                    project
+                                    |-- pom.xml
+                                    `-- src
+                                        |-- main
+                                        |   `-- java
+                                        |       `-- $package
+                                        |           `-- App.java
+                                        |-- site
+                                        |   `-- site.xml
+                                        `-- test
+                                            `-- java
+                                                `-- $package
+                                                    `-- AppTest.java
+                               </code></pre>
+                            </li>
+                        </ol>
+
                     </section>
 
                     <section>
@@ -168,6 +250,7 @@ java jar -cm [path.to.MANIFEST] [file1.class, file2.class]
                             <li>Pour build un projet : mvn package</li>
                             <li>Pour déployer : mvn deploy</li>
                             <li>Pour générer un site documentation : mvn site</li>
+                            <li>Plus généralement : mvn build phase[:plugin goal]</li>
                         </ul>
                     </section>
 
@@ -184,6 +267,7 @@ java jar -cm [path.to.MANIFEST] [file1.class, file2.class]
 
                         <div class="important">Contient toutes les informations pour faire fonctionner votre projet</div>
                     </section>
+
 
                     <section>
                         <h3>Exemple de POM</h3>
@@ -435,7 +519,7 @@ java jar -cm [path.to.MANIFEST] [file1.class, file2.class]
                             <dependency>
                                 <groupId>org.junit.jupiter</groupId>
                                 <artifactId>junit-jupiter</artifactId>
-                                <version>RELEASE</version>
+                                <version>5.4.0</version>
                                 <scope>test</scope>
                             </dependency>
                         </code></pre>
@@ -538,16 +622,7 @@ java jar -cm [path.to.MANIFEST] [file1.class, file2.class]
                     </section>
 
                     <section>
-                        <h3>Hands-on 3 👩‍💻👨‍💻: Tests unitaires</h3>
-                        <ul>
-                            <li>Récupérez le code sur git</li>
-                            <li>Codez des tests pour toutes les fonctions</li>
-                            <li>Lancez vos tests</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h3>La couverture de code</h3>
+                        <h3>La couverture de test</h3>
                         <ul>
                             <li class="fragment">Indicateur simple à calculer</li>
                             <li class="fragment">Combien de ligne sont exécutées via les test</li>
@@ -555,6 +630,17 @@ java jar -cm [path.to.MANIFEST] [file1.class, file2.class]
                             <li class="fragment">Facile de faire des "faux tests"</li>
                             <li class="fragment">Préférer faire peu de tests utiles que beaucoup inutiles</li>
                             <li class="fragment"><span class="important">80% des problèmes viennent de 20% du code</span></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Hands-on 3 👩‍💻👨‍💻: Tests unitaires</h3>
+                        <ul>
+                            <li>Récupérez le code sur git (lien du dépôt sur moodle, branche code-to-test)</li>
+                            <li>Ajoutez la dépendance à Junit5</li>
+                            <li>Codez des tests pour toutes les fonctions</li>
+                            <li>Allez de votre votre couverture de test(target/site/jacoco/index)</li>
+                            <li>Lancez vos tests</li>
                         </ul>
                     </section>
 

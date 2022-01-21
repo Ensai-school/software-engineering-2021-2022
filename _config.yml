@@ -18,21 +18,31 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Software Engineering - 2021-2020 - Ensai
-email: remi.pepin@ensai.fr
+title: Software Engineering - 2021-2022
+author:
+  name: Pépin Rémi
+  email: remi.pepin@ensai.fr
+
 description: >- # this means to ignore newlines until "baseurl:"
-  Site contenant les ressources des cours de software engineering délivré aux élèves
-  de troisième années (master *Data Science pour la Décision Publique* et filière
-  *Data Science et Ingénierie des données* )
+  Ressources des cours de software engineering délivrés aux élèves
+  de troisième années (master Data Science pour la Décision Publique et filière
+  Data Science et Ingénierie des données) de l'Ensai
 domaine: ensai-school.github.io
-baseurl: "/software-engineering-2021-2022/" # the subpath of your site, e.g. /blog
+baseurl: "/software-engineering-2021-2022" # the subpath of your site, e.g. /blog
 url: "https://ensai-school.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  HealerMikado
 
 # Build settings
-remote_theme: jekyll/minima
+theme: minima
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
+
+minima:
+  date_format: "%d/%m/%Y"
+
+  # generate social links in footer
+  social_links:
+    github:  HealerMikado
 
 # Exclude from processing.
 # The following items will not be processed, by default.
