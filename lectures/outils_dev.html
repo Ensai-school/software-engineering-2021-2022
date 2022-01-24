@@ -366,6 +366,47 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                             <li>Compilez votre application avec maven</li>
                         </ol>
                     </section>
+
+                    <section>
+                        <h3>Wrapper maven</h3>
+                        <ul>
+                            <li>Maven permet de gérer la version java</li>
+                            <li>Mais qui gère la version de maven ?</li>
+                            <li>Wrapper maven : plugin maven qui permet de livrer un 
+                                script qui encapsule maven
+                            </li>
+                            <li>Ce script n'a pas besoin d'avoir maven d'installer
+                                pour fonctionner
+                            </li>
+                            <li>Il permet de s'assurer que deux personnes qui lance
+                                le script obtiennent le même résultat
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Wrapper maven :  les commandes</h3>
+                        <ol>
+                            <li>Créer un fichier .mvnw <pre><code data-trim class="language-bash">
+                                mvn wrapper:wrapper
+                            </code></pre></li>
+                            <li>Utiliser maven depuis un wrapper maven <pre><code data-trim class="language-bash">
+                                # Unix
+                                ./mvnw clean install
+                                # Windows
+                                mvnw.cmd clean install
+                            </code></pre></li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <h3>Hands-on 2.1 📦🐦: Wrapper Maven</h3>
+                        <ol>
+                            <li>Reprenez le code de l'exercice précédent</li>
+                            <li>Créez un wrapper maven pour le code </li>
+                            <li>Faites un clean install en utilisant le wrapper</li>
+                        </ol>
+                    </section>
                 </section>
 
                 <section>

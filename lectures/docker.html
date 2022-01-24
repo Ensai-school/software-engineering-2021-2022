@@ -198,7 +198,7 @@
                             #Lancer un container
                             sudo docker container run [-it] [-p port_local:port_container] [--name container name] [image_name]
                             
-                            #Voir les container
+                            #Voir les containers
                             sudo docker container ps
                         
                             #Stopper un container
@@ -217,7 +217,7 @@
                         <ul>
                             <li>Allez sur le site <a href="https://hub.docker.com/search?type=image">docker hub</a>
                                 chercher une image ubuntu et lancez là. Lancez un shell python3 dans ce container.</li>
-                            <li>Aller chercher une image postgres, lancez là et connectez vous à la base
+                            <li>Allez chercher une image postgres, lancez-la et connectez vous à la base
                                 depuis l'outil de votre choix (shell, python, java, pgadmin etc) </li>
                             </ul>     
                     </section>
@@ -229,7 +229,7 @@
                                 <ul>
                                     <li>Logs applicative ?</li>
                                     <li>Base de données ?</li>
-                                    <li>Echange de fichiers ?</li>
+                                    <li>Échange de fichiers ?</li>
                                 </ul>
                             </li>
                             <li>Possible de faire pointer un dossier d'un container
@@ -244,14 +244,14 @@
 
 
                     <section>
-                        <h2>Hands on : container et volume 💽</h2>
+                        <h2>Hands on : containers et volumes 💽</h2>
                         <ol>
                             <li>Récupérez le code d'un site statique (soit à vous, soit sur Moodle)</li>
-                            <li>Lancer un container nginx avec un volume qui pointe vers votre site
+                            <li>Lancez un container nginx avec un volume qui pointe vers votre site
                                 <ul>
                                     <li>Le dossier dans le container est : /usr/share/nginx/html</li>
-                                    <li>On va donner uniquement les droits en lecture</li>
-                                    <li>Penser à mapper le port 80 du container</li>
+                                    <li>Donnez uniquement les droits en lecture</li>
+                                    <li>Pensez à mapper le port 80 du container</li>
                                     <li>Allez voir la page 127.0.0.1:80</li>
                                 </ul>
                             </li>
@@ -335,7 +335,7 @@
                     <section>
                         <h2>Hands on : docker et python 🐳🐍</h2>
                         <ol>
-                            <li>Récupérer le code python disponible sur Moodle</li>
+                            <li>Récupérez le code python disponible sur Moodle</li>
                             <li>Faites la fonctionner en local</li>
                             <li>Mettez la dans un container docker</li>
                                 <ol>
@@ -347,7 +347,7 @@
                     </section>
 
                     <section>
-                        <h2>Hands on : docker et java 🐳🍵</h2>
+                        <h2>Hands on : docker et java 🐳☕</h2>
                         <ol>
                             <li>Téléchargez l'application example de spring boot : https://github.com/spring-projects/spring-petclinic</li>
                             <li>Faites la fonctionner en local</li>

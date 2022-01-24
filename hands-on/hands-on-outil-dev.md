@@ -73,6 +73,19 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
 5. Ajouter dans la partie `build` de votre pom.xml le plugin `maven-assembly-plugin` et configurez-le pour spécifier votre classe principale mais aussi ajouter à votre jar toutes les dépendances nécessaires.
 6. Packagez votre application et testez-la
 
+### 3. Créer un wrapper maven 🐦📦
+
+Il peut-être fastidieux d'installer maven sur certaines machines, comme par exemple un container docker. 
+Pour nous faciliter la vie, maven nous permet de créer un *maven wrapper*, c'est à dire des fichiers qui vont contenir maven en version portable.
+Ainsi on pourra utiliser maven sans avoir à l'installer.
+
+Créer un *maven wrapper* est simple et demande simplement d'exécuter la commande `mvn wrapper:wrapper`
+Cela ca créer deux fichiers, un mvnw.cmd pour windows et mvnw pour les autres OS.
+À partir de la il suffit de faire `mvnw.cmd [phase]:[goal]` ou `mvnw [phase]:[goal]` pour utiliser maven sans avoir maven.
+
+1. Créez un *maven wrapper* dans le dossier de l'application précédente
+2. Utilisez le wrapper pour refaire les commandes précédentes
+
 ## Les tests 🟢🔴🟣
 
 Tester est extrêmement important quand on développe un produit (donc pas seulement une application informatique).
