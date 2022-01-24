@@ -24,10 +24,9 @@
                     <section>
                         <h3>Overview</h3>
                         <ul>
-                            <li>Build system : maven (java), buildout(python)</li>
+                            <li>Packager son code : maven (java), buildout(python)</li>
                             <li>Test : Junit4/5 (java), pytest(python)</li>
                             <li>Logging : log4j (java), logger(python)</li>
-                            <li>Gestion code source : git</li>
                             <li>Bonnes pratiques de code</li>
                         </ul>
                     </section>
@@ -35,7 +34,22 @@
 
                 <section>
                     <section>
-                        <h2>Maven</h2>
+                        <h2>Packager son code 📦</h2>
+                    </section>
+
+                    <section>
+                        <h3>Packager en ligne de commande</h3>
+                        <ul>
+                            <li>Source code : votre code (vivant), fortement dépendant de votre environnement de travail</li>
+                            <li>Code packager : code non modifiable (ex compilé) fait pour être exécuté</li>
+                            <li>Beaucoup d'IDE font ça pour nous</li>
+                            <li>Mais avec le conteneurisation, CI/CD, cloud computing, besoin
+                                de savoir faire ça à la main.
+                            </li>
+                            <li>Besoin juste de faire la différence entre langage nécessitant une 
+                                compilation (Java, C, Kotlin, C#) et les interprétés (python, js)
+                            </li>
+                        </ul>
                     </section>
 
                     <section>
@@ -59,7 +73,7 @@
                             <li>🚀Un outil de build + déploiement</li>
                             <li>📚Un outil de documentation</li>
                         </ul>
-
+                        <p>Pas d'équivalent en python (et c'est bien dommage)</p>
                     </section>
 
                     <section>
@@ -403,7 +417,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                         <h3>Pourquoi en tant que dev ?</h3>
                         <ul>
                             <li class="fragment">Vérifier que notre code fait ce qu'il doit faire</li>
-                            <li class="fragment">Eviter les régressions quand on modifie le code</li>
+                            <li class="fragment">Éviter les régressions quand on modifie le code</li>
                         </ul>
                     </section>
     
@@ -446,7 +460,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                     </section>
     
                     <section>
-                        <h3>Le Test Driven Developpement (TDD)</h3>
+                        <h3>Le Test Driven Development (TDD)</h3>
                         <p class="fragment">Pratique qui consiste à écrire les tests <span class="important">AVANT</span> de
                             coder</p>
                         <ul>
@@ -459,7 +473,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                     </section>
     
                     <section>
-                        <h3>Le Test Driven Developpement (TDD)</h3>
+                        <h3>Le Test Driven Development (TDD)</h3>
                         <p><a href="https://commons.wikimedia.org/wiki/File:Cycle-global-tdd.png#/media/Fichier:Cycle-global-tdd.png"><img
                                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Cycle-global-tdd.png/1200px-Cycle-global-tdd.png"
                                     alt="Cycle global TDD" class="plain w60"></a><br>Par Xarawn — <span class="int-own-work" lang="fr">Travail
@@ -808,6 +822,251 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                             <li class="fragment">Structure GIVEN/WHEN/THEN</li>
     
                         </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Logging 📚</h2>
+                    </section>
+
+                    <section>
+                        <h3>Logging</h3>
+                        <ul>
+                            <li>Consiste à émettre et enregistrer des messages suite à 
+                                des événement
+                            </li>
+                            <li>Connaître l'état d'un objet, un exception levée, arrivé à un point du code</li>
+                            <li>Facile debug, détection d'anomalie, flux de traitement</li>
+                            <li>Fonctionne en production, alors que le debug non</li>
+                            <li>Importance proportionnelle à la taille de l'application</li>
+                            <li>Plusieurs API (Log4j java, logging python)</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Logging</h3>
+                        <ul>
+                            <li>Permet d'avoir la chronologie des événements (attention en 
+                                cas de multithreading)
+                            </li>
+                            <li>Peut être persisté et traité par un système dédié</li>
+                            <li>Plusieurs niveau de log</li>
+                            <li>Plusieurs sorties possibles</li>
+                            <li>Remplace le System.out.println() ou le print()</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Log4j (java)</h3>
+                        <ul>
+                            <li>Framework populaire java</li>
+                            <li>Fiable, rapide, extensible</li>
+                            <li>Simple d'utilisation</li>
+                            <li>Granularité fine</li>
+                            <li>COnfiguration au runtime avec fichier de configuration</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Log4j : installation</h3>
+                        <pre><code data-trim class="language-xml">
+<dependencies>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.17.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.17.1</version>
+    </dependency>
+</dependencies>
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Log4j architecture</h3>
+                        <ul>
+                            <li>Loggers : Responsable pour capturer les information de log</li>
+                            <li>Appenders : Responsable pour publier les log vers différentes information</li>
+                            <li>Layouts : Responsable pour formater les logs</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Log4j configuration</h3>
+                        <ul>
+                            <li>Configuration dans le code (statique, difficile à faire évoluer, non présenté)</li>
+                            <li>Configuration dans un fichier (facile à modifier, surcharger)</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Log4j configuration
+                        </h3>
+                        <pre><code data-trim class="language-xml">
+                            <?xml version="1.0" encoding="UTF-8"?>
+                            <Configuration status="WARN">
+                                <Appenders>
+                                    <Console name="Console" target="SYSTEM_OUT">
+                                        <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+                                    </Console>
+                                    <File name="MyFile" fileName="logs/app.log">
+                                        <PatternLayout>
+                                            <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+                                        </PatternLayout>
+                                    </File>
+                                </Appenders>
+                                <Loggers>
+                                    <Root level="trace">
+                                        <AppenderRef ref="Console"/>
+                                        <AppenderRef ref="MyFile"/>
+                                    </Root>
+                                    <Logger name="custom" level="warn">
+                                        <AppenderRef ref="Console"/>
+                                    </Logger>
+                                </Loggers>
+                            </Configuration>
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Logger</h3>
+                        <ul>
+                            <li>Responsable de capter les messages</li>
+                            <li>On y accède via le code Java</li>
+                            <li>Configuration via fichier externe</li>
+                            <li>Chaque logger à un nom (convention java, con.foo.bar.ClassName)</li>
+                            <li>Héritage possible</li>
+                            <li>Priorisation selon le "niveau du message"
+                                 (TRACE, DEBUG, INFO, WARN, ERROR, FATAL)</li>
+                        </ul>
+                    </section>
+                    <section>
+
+                    </section>
+                    
+                    <section>
+                        <h3>Appender</h3>
+                        <ul>
+                            <li>Envoie le message dans la bonne destination</li>
+                            <li>Un même logger peut avoir plusieurs appenders</li>
+                            <li>Chaque appender à un layout</li>
+                            <li>ConsoleAppender, FileAppender, RollingFileAppender, SMTPAppender, etc</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Layout</h3>
+                        <ul>
+                            <li>Pour déterminer l'affichage des logs</li>
+                            <li>HTMLLayout, PatternLayout, SimpleLayout, XMLLayout</li>
+                            <li>Pattern Layout : %d %p %c{1.} [%t] %m%n </li>
+                            <li>Ajoute de couleur avec highlight{pattern}{style} </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Les bases de Log4j</h3>
+                        <ul>
+                            <li><span class="fragment">Qui log les messages ?</span><span class="fragment">Les loggers</span></li>
+                            <li><span class="fragment">Qui défini le format ? </span><span class="fragment">Les layouts</span></li>
+                            <li><span class="fragment">Qui décide la priorité des messages ?</span><span class="fragment">Son niveau</span></li>
+                            <li><span class="fragment">Qui décide où sera envoyé le message ?</span><span class="fragment">Les appenders</span></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Logger API</h3>
+                        <pre><code data-trim class="language-java">
+                            import org.apache.logging.log4j.LogManager;
+                            import org.apache.logging.log4j.Logger;
+                            
+                            public class App 
+                            {
+                                private static Logger logger = LogManager.getRootLogger();
+                                public static void main( String[] args )
+                                {
+                                    logger.trace("msg de trace");
+                                    logger.debug("msg de debogage");
+                                    logger.info("msg d'info");
+                                    logger.warn("msg de warn");
+                                    logger.error("msg d'erreur");
+                                    logger.fatal("msg fatal");
+                                }
+                            }
+                        </code></pre>                     
+                    </section>
+                    <section>
+                        <h3>Hands-on : mise en place d'un logger 📚</h3>
+                        <ol>
+                            <li>Récupérez le code de la partie d'avant</li>
+                            <li>Ajoutez différents loggers
+                                <ul>
+                                    <li>Un logger qui log tout en console et dans un fichier</li>
+                                    <li>Un logger qui log les messages WARN et plus dans un fichier</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <h3>Python logging module</h3>
+                        <ul>
+                            <li>Logguer n'est pas spécifique à java</li>
+                            <li>Logging : module python de base pour logguer</li>
+                            <li>Mêmes principes que log4j, logger, handler, formater, level</li>
+                            <li>Configuration par fichier > configuration dans le code</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h3>Python logging module</h3>
+                            logging.yml
+                                <pre><code data-trim class="language-yml">
+                                    version: 1
+                                    formatters:
+                                      simple:
+                                        format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+                                    handlers:
+                                      console:
+                                        class: logging.StreamHandler
+                                        level: DEBUG
+                                        formatter: simple
+                                        stream: ext://sys.stdout
+                                    loggers:
+                                      simpleExample:
+                                        level: DEBUG
+                                        handlers: [console]
+                                        propagate: no
+                                    root:
+                                      level: DEBUG
+                                      handlers: [console]
+                                </code></pre>
+                            </section>
+                            <section>
+                                    <h3>Python logging module</h3>
+                            Fichier python
+                                <pre><code data-trim class="language-python">
+                                    import logging.config
+                                    import yaml
+                                    
+                                    with open('./logging.yml', 'r') as stream:
+                                        config = yaml.load(stream, Loader=yaml.FullLoader)
+                                    
+                                    logging.config.dictConfig(config)
+                                    
+                                    # create logger
+                                    logger = logging.getLogger('simpleExample')
+                                    
+                                    # 'application' code
+                                    logger.debug('debug message')
+                                    logger.info('info message')
+                                    logger.warning('warn message')
+                                    logger.error('error message')
+                                    logger.critical('critical message')
+                                </code></pre>   
                     </section>
                 </section>
 			</div>

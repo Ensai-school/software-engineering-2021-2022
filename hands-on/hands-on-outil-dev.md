@@ -2,6 +2,21 @@
 layout: page
 title: "Hands-on : Outils pout le dev/data-engineer"
 ---
+____
+- [Gérer un projet java en ligne de commande ☕📦](#gérer-un-projet-java-en-ligne-de-commande-)
+  - [1. Compiler un code java à la main ☕](#1-compiler-un-code-java-à-la-main-)
+  - [2. Créer un fichier .jar à la main 📦](#2-créer-un-fichier-jar-à-la-main-)
+  - [3. Créer à un projet maven 🐦](#3-créer-à-un-projet-maven-)
+- [Les tests 🟢🔴🟣](#les-tests-)
+  - [Mes premiers tests unitaires 🟢🔴](#mes-premiers-tests-unitaires-)
+  - [Le mutation testing 🦠](#le-mutation-testing-)
+  - [À vous de jouer 🎮](#à-vous-de-jouer-)
+- [Logging avec Log4J 📚](#logging-avec-log4j-)
+  - [Mes premiers loggers en java ☕📚](#mes-premiers-loggers-en-java-)
+  - [Logging en pyhon  avec *logging*🐍📚](#logging-en-pyhon--avec-logging)
+  - [Mes premiers loggers en Python 🐍📚](#mes-premiers-loggers-en-python-)
+
+____
 
 ## Gérer un projet java en ligne de commande ☕📦
 
@@ -158,8 +173,136 @@ Ainsi qu'une nouvelle phase de build
     </plugins>
 </build>{% endhighlight %} 
 
-### À vous de jouer
+### À vous de jouer 🎮
 
 1. Ajoutez une dépendance à `Pitest` dans votre projet
 2. Lancez les tests et regardez combien de mutant se sont échappés
 3. Tuez tous les mutants
+
+## Logging avec Log4J 📚
+
+Le *logging* (journalisation en français) consiste à émettre des messages suites à des événements que vie une application.
+Ces messages peuvent être affichés dans un sortie standard (comme votre terminal) ou écrits dans un fichier, envoyés dans une base de données, par mail etc.
+
+Le logging permet d'avoir un trace pour analyser à posteriori ce qu'il s'est passé.
+C'est donc utile lors d'une phase de débogage, mais aussi pour analyser les performances d'une application.
+L'analyse des logs ne sera pas abordée dans ce cours.
+
+Il existe plusieurs bibliothèques pour logger en java, mais nous allons nous concentrer sur Log4j. L'architecture de Log4j repose sur :
+- Les loggers qui vont rediriger les informations que l'on souhaite logger
+- Les appenders qui spécifient la destination des logs
+- Les layouts qui déterminent le format des messagers.
+- Les niveaux de log qui qualifient l'importance de l'information (TRACE, DEBUG, INFO, WARN, ERROR, FATAL)
+
+Log4J permet un une configuration par fichier, ce qui permet de souplesse supérieur à une configuration par code. Voici un exemple de fichier log4j2.xml. Pour être pris en compte, votre fichier doit être placé dans un dossier du classpath de votre application.
+
+{% highlight xml %}
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="MyFile" fileName="logs/app.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="MyFile"/>
+        </Root>
+        <Logger name="custom" level="warn">
+            <AppenderRef ref="Console"/>
+        </Logger>
+    </Loggers>
+</Configuration>{% endhighlight %}
+
+Et voici un exemple de code utilisant le fichier de configuration pour ses loggers.
+
+{% highlight java %}
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class App 
+{
+    private static Logger loggerRoot = LogManager.getRootLogger();
+    private static Logger loggerCustom = LogManager.getLogger("custom");
+    public static void main( String[] args )
+    {
+        loggerRoot.trace("msg de trace");
+        loggerRoot.debug("msg de debogage");
+        loggerRoot.info("msg d'info");
+        loggerRoot.warn("msg de warn");
+        loggerRoot.error("msg d'erreur");
+        loggerRoot.fatal("msg fatal");
+
+        loggerCustom.trace("msg de trace");
+        loggerCustom.debug("msg de debogage");
+        loggerCustom.info("msg d'info");
+        loggerCustom.warn("msg de warn");
+        loggerCustom.error("msg d'erreur");
+        loggerCustom.fatal("msg fatal");
+    }
+}{% endhighlight %} 
+
+### Mes premiers loggers en java ☕📚
+1. Récupérez le code de la partie d'avant
+2. Ajoutez différents loggers qui enregistrent les méthodes appelées et les paramètres passés. Vous devrez faire au minimum :
+  1. Un logger qui log tout en console et dans un fichier
+  2. Un logger qui log les messages WARN et plus dans un fichier
+
+## Logging en python avec *logging*🐍📚
+
+Le logging n'est pas propre à python et tous les langages dispose d'une utilitaire pour le faire.
+Python dispose de [logging](https://docs.python.org/3/whatsnew/2.3.html#pep-282-the-logging-package) pour cela.
+Le principe est le même, on a des loggers , handler (=appenders), formater (=layout), level. La configuration peut (doit) se faire un fichier externe pour une plus grande souplesse.
+Par exemple voici un fichier yml de configuration :
+{% highlight yaml %}
+version: 1
+formatters:
+    simple:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+handlers:
+    console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+loggers:
+    simpleExample:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
+root:
+    level: DEBUG
+    handlers: [console]{% endhighlight %} 
+
+Et son utilisation dans un code python.
+
+{% highlight python %}
+import logging.config
+import yaml
+
+with open('./logging_conf.yml', 'r') as stream:
+    config = yaml.load(stream, Loader=yaml.FullLoader)
+
+logging.config.dictConfig(config)
+
+# create logger
+logger = logging.getLogger('simpleExample')
+
+# 'application' code
+logger.debug('debug message')
+logger.info('info message')
+logger.warning('warn message')
+logger.error('error message')
+logger.critical('critical message'){% endhighlight %} 
+
+### Mes premiers loggers en Python 🐍📚
+1. Prenez un de vos anciens code python
+2. Ajoutez différents loggers qui enregistrent les méthodes appelées et les paramètres passés. Vous devrez faire au minimum :
+  1. Un logger qui log tout en console et dans un fichier
+  2. Un logger qui log les messages WARN et plus dans un fichier

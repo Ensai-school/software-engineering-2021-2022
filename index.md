@@ -29,5 +29,5 @@ Le cours présente une introduction aux modèles de conception classiques, base 
 - [🐳 Conteneurisation avec Docker](lectures/docker.html)
 - [🍃 Introduction à Spring Boot](lectures/spring_boot.html)
 
-## Hand-on
+## Hands-on
 - [🧰 Outils pour le développeur ou data engineer](hands-on/hands-on-outil-dev.html)
