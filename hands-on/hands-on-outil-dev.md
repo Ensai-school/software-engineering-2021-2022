@@ -35,7 +35,7 @@ Pour rappel voici différentes instructions pour compiler/lancer du code java
    1. Une `public class` App
    2. Une `public static void main(String[] args)` qui affiche un hello world
 2. Compilez cette classe
-3. Lancez là
+3. Lancez la
 
 ### 2. Créer un fichier .jar à la main 📦
 
@@ -60,17 +60,14 @@ Pour rappel voici quelques commandes maven de base
 
 - Créer un projet maven vide  
     {% highlight bash %}
-mvn -B archetype:generate   -DgroupId=com.mycompany.app 
-                            -DartifactId=my-app 
-                            -DarchetypeArtifactId=maven-archetype-quickstart 
-                            -DarchetypeVersion=1.4{% endhighlight %}
+mvn -B archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4{% endhighlight %}
 - Exécuter une phase maven : `mvn phase_name` exemple `mvn install`, `mvn test`
 
 1. Dans un dossier créez un projet maven, puis insérer le code de l'exercice précédent.
-2. Il n'est plus nécessaire d'avoir le jar commons-collections4-4.4, il faudra ajouter cette dépendance dans le pom.xml. Changer également la version de java pour en utiliser une plus récente.
+2. Il n'est plus nécessaire d'avoir le jar commons-collections4-4.4, il faudra ajouter cette dépendance dans le pom.xml. Changez également la version de java pour en utiliser une plus récente (exemple java 8).
 3. Packagez votre application avec la bonne étape maven
 4. Lancez votre jar
-5. Ajouter dans la partie `build` de votre pom.xml le plugin `maven-assembly-plugin` et configurez-le pour spécifier votre classe principale mais aussi ajouter à votre jar toutes les dépendances nécessaires.
+5. Ajouter dans la partie `build` de votre pom.xml le plugin `maven-assembly-plugin` et configurez-le pour spécifier votre classe principale mais aussi ajoutez à votre jar toutes les dépendances nécessaires.
 6. Packagez votre application et testez-la
 
 ### 3. Créer un wrapper maven 🐦📦
@@ -81,7 +78,7 @@ Ainsi on pourra utiliser maven sans avoir à l'installer.
 
 Créer un *maven wrapper* est simple et demande simplement d'exécuter la commande `mvn wrapper:wrapper`
 Cela ca créer deux fichiers, un mvnw.cmd pour windows et mvnw pour les autres OS.
-À partir de la il suffit de faire `mvnw.cmd [phase]:[goal]` ou `mvnw [phase]:[goal]` pour utiliser maven sans avoir maven.
+À partir de la il suffit de faire `mvnw.cmd [phase]:[goal]` ou `.\mvnw [phase]:[goal]` pour utiliser maven sans avoir maven.
 
 1. Créez un *maven wrapper* dans le dossier de l'application précédente
 2. Utilisez le wrapper pour refaire les commandes précédentes
