@@ -3,17 +3,16 @@ layout: page
 title: "Hands-on : docker"
 ---
 ___
-- [Lancer un container](#lancer-un-container)
-- [Voir les containers](#voir-les-containers)
-- [Stopper un container](#stopper-un-container)
-- [Lancer une commande dans un container](#lancer-une-commande-dans-un-container)
-- [Rentrer dans un container](#rentrer-dans-un-container)
-- [Container avec un volume](#container-avec-un-volume)
-    - [Plus de containers](#plus-de-containers)
-    - [Containers et volumes](#containers-et-volumes)
-  - [Créer des images](#créer-des-images)
-    - [Docker et python 🐳🐍](#docker-et-python-)
-    - [Docker et java 🐳☕](#docker-et-java-)
+- [Virtualisation/Conteneurisation](#virtualisationconteneurisation)
+  - [Hands-on : découverte des namespaces linux](#hands-on--découverte-des-namespaces-linux)
+- [Lancer des containers](#lancer-des-containers)
+  - [Mon premier container 🐳](#mon-premier-container-)
+  - [Les commandes de bases pour les containers 📦](#les-commandes-de-bases-pour-les-containers-)
+  - [Plus de containers](#plus-de-containers)
+  - [Containers et volumes](#containers-et-volumes)
+- [Créer des images](#créer-des-images)
+  - [Docker et python 🐳🐍](#docker-et-python-)
+  - [Docker et java 🐳☕](#docker-et-java-)
 
 
 ___
@@ -68,22 +67,22 @@ Exécutez la commande `sudo docker container run hello-world`. Regardez le termi
 
 ### Les commandes de bases pour les containers 📦
 {% highlight bash %}
-# Lancer un container
+// Lancer un container
 sudo docker container run [-it] [-p port_local:port_container] [--name container name] [image_name]
 
-# Voir les containers
+// Voir les containers
 sudo docker container ps
 
-# Stopper un container
+// Stopper un container
 sudo docker stop [id/name]
 
-# Lancer une commande dans un container
+// Lancer une commande dans un container
 sudo docker exec [id/name] [commande]
 
-# Rentrer dans un container
+// Rentrer dans un container
 sudo docker exec [id/name] -it bash
 
-# Container avec un volume
+// Container avec un volume
 sudo docker container run [-v host/path:container/folder[:ro]] [image_name]
 {% endhighlight %}
 

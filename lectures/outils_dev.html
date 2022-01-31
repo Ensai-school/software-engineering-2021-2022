@@ -329,7 +329,8 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
 
                     <section>
                         <h3>Options de build</h3>
-                        <pre><code data-trim class="language-xml">
+                        <pre><code data-trim class="language-xml"><script type="text/template">
+
                             <project>
                                 <modelVersion>4.0.0</modelVersion>
                                
@@ -368,14 +369,14 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                                 </build>
 
                               </project>
-                        </code></pre>
+                            </script></code></pre>
                     </section>
 
                     <section>
                         <h3>Hands-on 2 🐦: Maven</h3>
                         <ol>
                             <li>Reprenez le code de l'exercice précédent</li>
-                            <li>Créez un POM.xml pour <em>maveniser</em> votre application</li>
+                            <li>Créez un pom.xml pour <em>maveniser</em> votre application</li>
                             <li>Pensez à ajouter la dépendance Apache Commons Collections (go internet)</li>
                             <li>Compilez votre application avec maven</li>
                         </ol>
@@ -389,10 +390,10 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                             <li>Wrapper maven : plugin maven qui permet de livrer un 
                                 script qui encapsule maven
                             </li>
-                            <li>Ce script n'a pas besoin d'avoir maven d'installer
+                            <li>Ce script n'a pas besoin d'avoir maven d'installé
                                 pour fonctionner
                             </li>
-                            <li>Il permet de s'assurer que deux personnes qui lance
+                            <li>Il permet de s'assurer que deux personnes qui lancent
                                 le script obtiennent le même résultat
                             </li>
                         </ul>
@@ -578,19 +579,21 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                            <li>Le framework de test le plus récent en java</li>
                            <li>Besoin de l'ajouter aux dépendances du projet (dans le pom.xml)</li>
                            <li>Généralement les tests sont dans le dossier test</li>
-                           <li>Utilisation d'annotations</li>
+                           <li>Utilisation d'annotations (pareil en python)</li>
                        </ul>
                     </section>
 
                     <section>
                         <h3>Ajouter Junit5 à votre projet</h3>
                         <pre><code data-trim class="language-xml">
+                            <script type="text/template">
                             <dependency>
                                 <groupId>org.junit.jupiter</groupId>
                                 <artifactId>junit-jupiter</artifactId>
                                 <version>5.4.0</version>
                                 <scope>test</scope>
                             </dependency>
+                        </script>
                         </code></pre>
                     </section>
 
@@ -642,6 +645,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                     <section>
                         <h3>Anatomie d'un test</h3>
                         <ol>
+                            <li>Un nom clair qui permet de savoir ce que fait le test</li>
                             <li>Définition et mise en forme des inputs (GIVEN/ARRANGE)</li>
                             <li>Réalisation des actions que l'on souhaite tester (WHEN/ACT)</li>
                             <li>Vérification des assertions (THEN/ASSERT)</li>
@@ -666,7 +670,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
 
                         <pre><code data-trim class="language-java">
                             @Test
-                            public void addTopping() {
+                            public void addToppingOk() {
                                 // GIVEN
                                 Cake cake = new Cake(Ingredient.VANILLA,4);
                                 // WHEN
@@ -705,7 +709,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                     <section>
                         <h3>Hands-on 3 👩‍💻👨‍💻: Tests unitaires</h3>
                         <ul>
-                            <li>Récupérez le code sur git (lien du dépôt sur moodle, branche code-to-test)</li>
+                            <li>Récupérez le code sur moodle</li>
                             <li>Ajoutez la dépendance à Junit5</li>
                             <li>Codez des tests pour toutes les fonctions</li>
                             <li>Lancez vos tests</li>
@@ -718,7 +722,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                         <ul>
                             <li>Les tests permettent d'évaluer la qualité du code</li>
                             <li>Mais qui évalue la qualité des tests ?</li>
-                            <li>Il est facile de faire de faux test</li>
+                            <li>Il est facile de faire de faux tests</li>
                         </ul>
                     </section>
 
@@ -776,6 +780,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                     <section>
                         <h3>Dépendance maven</h3>
                                 <pre><code data-trim class="language-xml">
+                                    <script type="text/template">
                                     <dependencies>
                                         <dependency>
                                             <groupId>org.pitest</groupId>
@@ -783,12 +788,14 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                                             <version>1.7.3</version>
                                             <type>pom</type>
                                         </dependency>       
-                                    </dependencies>                  
+                                    </dependencies>
+                                </script>                  
                                 </code></pre>
                     </section>
                             <section>
                                 <h3>Configuration du build</h3>
                                 <pre><code data-trim class="language-xml">
+                                    <script type="text/template">
                             <build>
                                 <plugins>
                                     <plugin>
@@ -816,7 +823,8 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                         
                                     </plugin>    
                                 </plugins>
-                            </build>                       
+                            </build>        
+                        </script>               
                                 </code></pre>
 
                     </section>
@@ -831,7 +839,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                                     </code>
                                 </pre></li>
                             <li>Allez lire le rapport dans target>pit-reports</li>
-                            <li>Modifier ses tests</li>
+                            <li>Modifiez ses tests</li>
                         </ul>
                     </section>
 
@@ -849,7 +857,7 @@ mvn -B archetype:generate   -DgroupId=com.mycompany.app
                         <h3>Hands-on 4 🦠: mutation testing</h3>
                         <ul>
                             <li>Mettez en place Pitest dans votre projet</li>
-                            <li>Regarder combien de mutants s'échappent</li>
+                            <li>Regardez combien de mutants s'échappent</li>
                             <li>Améliorez vos tests pour tous les éliminer</li>
                         </ul>
                     </section>
