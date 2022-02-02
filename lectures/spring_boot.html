@@ -75,6 +75,7 @@ package fr.ensai.demo;
 public class DemoApplication {
 
     public static void main(String[] args) {
+        # Start the Spring framework
         SpringApplication.run(DemoApplication.class, args);
     }
 
@@ -89,7 +90,7 @@ public class DemoApplication {
                             <li>@SpringBootApplication = 
                                 <ul>
                                     <li>@SpringBootConfiguration : la classe sera utilisée comme une classe de configuration.</li>
-                                    <li>@EnableAutoConfiguration : active la fameuse fonctionnalité d’autoconfiguration de Spring Boot.</li>
+                                    <li>@EnableAutoConfiguration : active la fonctionnalité d’autoconfiguration de Spring Boot.</li>
                                     <li>@ComponentScan : active le “scanning” de classes dans le package de la classe et dans ses sous-packages.</li>
                                 </ul>
                             </li>
@@ -285,7 +286,7 @@ public class DemoApplication {
                         <section>
                             <h3>La notion d'ORM</h3>
                             <ul>
-                                <li>Faire le lien entre base de donné et code est laborieux</li>
+                                <li>Faire le lien entre base de donnée et code est laborieux</li>
                                 <li>Hibernate : Outils générique pour faire le lien pojo-bdd utilisé par Spring</li>
                             </ul>
                         </section>
@@ -409,7 +410,10 @@ public class DemoApplication {
                                 <li>BookController implémente les bons endpoints
                                 </li>
                                 <li>Utilisez une base h2 pour stockez vos données</li>
-                                <li>Quand vous avez terminé transformer la base h2 en base postgres</li>
+                                <li>Quand vous avez terminé transformer la base h2 en base postgres contenu dans
+                                    un container
+                                </li>
+                                <li>Dockerisez votre application</li>
                             </ol>
                         </section>
     

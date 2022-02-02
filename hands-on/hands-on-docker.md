@@ -80,7 +80,7 @@ sudo docker stop [id/name]
 sudo docker exec [id/name] [commande]
 
 // Rentrer dans un container
-sudo docker exec [id/name] -it bash
+sudo docker exec -it [id/name] bash
 
 // Container avec un volume
 sudo docker container run [-v host/path:container/folder[:ro]] [image_name]
