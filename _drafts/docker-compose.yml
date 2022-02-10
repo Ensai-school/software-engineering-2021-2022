@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mongo1:
+    image: mongo
+    container_name: mongo1
+    ports:
+      - 27017:27017
+    volumes:
+      - volume-mongo1:/data/db
+    environment:
+      - MONGODB_REPLICA_SET_MODE: primary
+    entrypoint: ["mongod","--replSet", "myReplicaSet", "--bind_ip_all"]
+    
+  mongo2:
+    image: mongo
+    container_name: mongo2
+    entrypoint: ["mongod","--replSet", "myReplicaSet", "--bind_ip_all"]
+    ports:
+      - 27018:27017
+    volumes:
+      - volume-mongo2:/data/db
+  mongo3:
+    image: mongo
+    container_name: mongo3
+    entrypoint: ["mongod","--replSet", "myReplicaSet", "--bind_ip_all"]
+    ports:
+      - 27019:27017
+    volumes:
+      - volume-mongo3:/data/db
+
+volumes:
+  volume-mongo1:
+  volume-mongo2:
+  volume-mongo3:
+      

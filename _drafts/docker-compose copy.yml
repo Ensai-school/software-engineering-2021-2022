@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - volume-mongo1:/data/db
+    entrypoint: [ "/usr/bin/mongod", "--replSet", "rsmongo", "--bind_ip_all"]
+
+
+
+volumes:
+  volume-mongo1:

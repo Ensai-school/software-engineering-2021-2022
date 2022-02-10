@@ -8,11 +8,11 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
         <link rel="stylesheet" href="css/mine.css">
         
 		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		<link rel="stylesheet" href="plugin/highlight/zenburn.css">
 	</head>
 	<body>
 		<div class="reveal">
@@ -78,7 +78,7 @@
                             <li>Facile de créer une image</li>
                             <li>Une image se lance rapidement</li>
                             <li>Plus souple qu'une VM</li>
-                            <li>Orienté 1 container = 1 application</li>
+                            <li>Orienté 1 conteneur= 1 application</li>
                             <li>Système de couche</li>
                         </ul>
                     </section>
@@ -166,7 +166,7 @@
 
                 <section>
                     <section>
-                        <h2>Hands on : mon premier container 🐳</h2>
+                        <h2>Hands on : mon premier conteneur🐳</h2>
                         <ul>
                             <li>Installez Docker : <a href="https://docs.docker.com/engine/install/ubuntu/">doc officielle</a> </li>
                             <li>Lancez l'image hello-world </li>
@@ -182,7 +182,7 @@
                             <li>Verification si image en local</li>
                             <li>Récupération de l'image (avec des couches)</li>
                             <li>Lancement de l'image</li>
-                            <li>Arrêt du container</li>
+                            <li>Arrêt du conteneur</li>
                         </ol>
                     </section>
                 </section>
@@ -195,28 +195,28 @@
                     <section>
                         <h3>Les commandes de base 1</h3>
                         <pre><code data-trim data-noescape class="language-bash">
-                            #Lancer un container
-                            sudo docker container run [-it] [-p port_local:port_container] [--name container name] [image_name]
+                            #Lancer un conteneur
+                            sudo docker container run [-it] [-p port_local:port_conteneur] [--name conteneurname] [image_name]
                             
-                            #Voir les containers
+                            #Voir les conteneurs
                             sudo docker container ps
                         
-                            #Stopper un container
+                            #Stopper un conteneur
                             sudo docker stop [id/name]
 
-                            #Lancer une commande dans un container
+                            #Lancer une commande dans un conteneur
                             sudo docker exec [id/name] [commande]
 
-                            #Rentrer dans un container
+                            #Rentrer dans un conteneur
                             sudo docker exec -it [id/name]  bash
                         </code></pre>
                     </section>
 
                     <section>
-                        <h2>Hands on : des containers plus poussés 🐳</h2>
+                        <h2>Hands on : des conteneurs plus poussés 🐳</h2>
                         <ul>
                             <li>Allez sur le site <a href="https://hub.docker.com/search?type=image">docker hub</a>
-                                chercher une image ubuntu et lancez là. Lancez un shell python3 dans ce container.</li>
+                                chercher une image ubuntu et lancez là. Lancez un shell python3 dans ce conteneur.</li>
                             <li>Allez chercher une image postgres, lancez-la et connectez vous à la base
                                 depuis l'outil de votre choix (shell, python, java, pgadmin etc) </li>
                             </ul>     
@@ -225,33 +225,33 @@
                     <section>
                         <h3>Les volumes</h3>
                         <ul>
-                            <li>Actuellement nos containers sont volatiles
+                            <li>Actuellement nos conteneurs sont volatiles
                                 <ul>
                                     <li>Logs applicative ?</li>
                                     <li>Base de données ?</li>
                                     <li>Échange de fichiers ?</li>
                                 </ul>
                             </li>
-                            <li>Possible de faire pointer un dossier d'un container
+                            <li>Possible de faire pointer un dossier d'un conteneur
                                 vers un stockage externe
                             </li>
                             <li>S'appelle un volume</li>
                         </ul>
                         <pre><code data-trim data-noescape class="language-bash">
-                        sudo docker container run [-v host/path:container/folder[:ro]] [image_name]
+                        sudo docker container un [-v host/path:conteneur/folder[:ro]] [image_name]
                         </code></pre>
                     </section>
 
 
                     <section>
-                        <h2>Hands on : containers et volumes 💽</h2>
+                        <h2>Hands on : conteneurs et volumes 💽</h2>
                         <ol>
                             <li>Récupérez le code d'un site statique (soit à vous, soit sur Moodle)</li>
-                            <li>Lancez un container nginx avec un volume qui pointe vers votre site
+                            <li>Lancez un conteneurnginx avec un volume qui pointe vers votre site
                                 <ul>
-                                    <li>Le dossier dans le container est : /usr/share/nginx/html</li>
+                                    <li>Le dossier dans le conteneurest : /usr/share/nginx/html</li>
                                     <li>Donnez uniquement les droits en lecture</li>
-                                    <li>Pensez à mapper le port 80 du container</li>
+                                    <li>Pensez à mapper le port 80 du conteneur</li>
                                     <li>Allez voir la page 127.0.0.1:80</li>
                                 </ul>
                             </li>
@@ -265,11 +265,11 @@
                     </section>
 
                     <section>
-                        <h3>Dockerfile, image et container</h3>
+                        <h3>Dockerfile, image et conteneur</h3>
                         <ul>
                             <li>Dockerfile : fichier pour dire comment créer une image (recette de cuisine) (~1ko)</li>
                             <li>Image : une application packagée pour docker (du Ko au Go)</li>
-                            <li>Container : une instance en fonctionnement d'une image</li>
+                            <li>conteneur: une instance en fonctionnement d'une image</li>
                         </ul>
                     </section>
 
@@ -326,7 +326,7 @@
                                  contenant les données présentes sur Moodle
                                  (partie Initialization scripts de la doc docker Postgres)</li>
                             <li>Lancez votre image</li>
-                            <li>Connectez vous au container</li>
+                            <li>Connectez vous au conteneur</li>
                             <li>Vérifiez que l'image contient bien les données</li>
                         </ol>
                         <p>Si vous êtes en avance faite la même chose avec une base mongodb</p>
@@ -337,7 +337,7 @@
                         <ol>
                             <li>Récupérez le code python disponible sur Moodle</li>
                             <li>Faites la fonctionner en local</li>
-                            <li>Mettez la dans un container docker</li>
+                            <li>Mettez la dans un conteneurdocker</li>
                                 <ol>
                                     <li>Partez de l'image python:3-alpine</li>
                                     <li>Exécutez l'application au lancement du package avec CMD ou ENTRYPOINT</li>
@@ -351,7 +351,7 @@
                         <ol>
                             <li>Téléchargez l'application example de spring boot : https://github.com/spring-projects/spring-petclinic</li>
                             <li>Faites la fonctionner en local</li>
-                            <li>Mettez la dans un container docker</li>
+                            <li>Mettez la dans un conteneurdocker</li>
                                 <ol>
                                     <li>Partez de l'image openjdk:8-jdk-alpine</li>
                                     <li>Packagez l'application</li>
@@ -375,17 +375,17 @@
                         <ul>
                             <li>Déployer une appli 3 tiers (front js, back java, bdd)</li>
                             <li>3 images dockers, besoin de les déployer dans l'ordre bdd, back, front pour
-                                pouvoir faire les liens entre les containers.
+                                pouvoir faire les liens entre les conteneurs.
                              </li>
                             <li>Besoin de faire les liens à la main</li>
                         </ul>
-                        <p>On aimerait une macro image de 3 containers</p>
+                        <p>On aimerait une macro image de 3 conteneurs</p>
                     </section>
 
                     <section>
                         <h3>Meet Docker Compose</h3>
                         <quote>
-                            Compose is a tool for defining and running <span class="important">multi-container Docker
+                            Compose is a tool for defining and running <span class="important">multi-conteneurDocker
                             applications</span>. With Compose, you use a <span class="important">YAML file</span> to configure your
                             application’s services. Then, with a <span class="important">single command</span>, you create 
                             and start all the services from your configuration. To learn more
@@ -400,43 +400,155 @@
                                 <ul>
                                     <li>Fichiers Dockerfile</li>
                                     <li>Plusieurs docker run à faire</li>
+                                    <li>Ou mettre tout dans un script</li>
                                 </ul>
                             </li>
                             <li>Docker Compose
                                 <ul>
-                                    <li>Fichiers Dockerfile</li>
+                                    <li>Fichiers Dockerfile / des images</li>
                                     <li>Un fichier docker-compose.yml</li>
-                                    <li>Un docker compose up à faire</li>
+                                    <li>Un docker-compose up à faire</li>
                                 </ul>
                             </li>
                         </ol>
                     </section>
+                    <section>
+                        <h3>Le fichier docker-compose</h3>
+                        <ul>
+                            <li>Fichier yml (clef/valeur)</li>
+                            <li>Commence par la version de docker-compose</li>
+                            <li>Puis la clef services et une liste de services (~conteneur)</li>
+                            <li>Et les paramètres du conteneur (ce que l'on mettrais dans un dockerfile</li>
+                        </ul>
+                    </section>
 
                     <section>
-                        <pre><code data-trim data-noescape class="language-yaml">
-version: "3.9"
+                        <h3>
+                            Le fichier docker-compose demo 
+                        </h3>
 
+                        <ul>
+                            <li>Commande docker
+                                <pre style="width: 100%;"><code data-trim data-noescape class="language-yaml">
+                                    docker run -d \ 
+                                    --name mongodb \
+                                    -p 27017:27017 \
+                                    -e MONGO_INITDB_ROOT_USERNAME=hello \
+                                    -e MONGO_INITDB_ROOT_PASSWORD=world \
+                                    mongo
+                                </code></pre>
+                            </li>
+                            <li>Equivalent docker-compose.yml
+                                <pre style="width: 100%;"><code data-trim data-noescape class="language-yaml">
+version: "3.9"
 services:
-  service_1:
-    image: tag_image
-    container_name: app1
+  mongodb:
+    image: mongo
+    container_name: mongo
     ports:
-      - "port_local:port_container"
+      - 27017:20017
     environment:
-      - var_env1=
-      - var_env2=
-  service2:
-    image: tag_image
-    container_name: app2
-    depends_on : service1
-    ports:
-      - "port_local:port_container"
-    environment:
-      - var_env1=
-      - var_env2=
+      - MONGO_INITDB_ROOT_USERNAME=hello
+      - MONGO_INITDB_ROOT_PASSWORD=world
+                                </code></pre>
+                            </li>
+                        </ul>
+
+                    </section>
+                    <section>
+                        <h3>
+                            Le fichier docker-compose demo 
+                        </h3>
+<p>
+    Pour créer un conteneur mongodb + mongo express
+</p>
+                                <pre><code data-trim data-noescape class="language-yaml">
+docker network create mongo_net
+docker run -d \
+--name mongodb \
+--network mongo_net \
+-p 27017:27017 \
+-e MONGO_INITDB_ROOT_USERNAME=hello \
+-e MONGO_INITDB_ROOT_PASSWORD=world \
+mongo
+docker run -d \
+--network mongo_net \
+-e ME_CONFIG_MONGODB_ADMINUSERNAME=hello \
+-e ME_CONFIG_MONGODB_ADMINPASSWORD=world \
+-e ME_CONFIG_MONGODB_SERVER=mongodb \
+-p 8081:8081 \
+mongo-express
+                                </code></pre>
+                    </section>
+                    <section>
+                        <h3>
+                            Le fichier docker-compose demo 
+                        </h3>
+                        <p>L'équivalent docker-compose.yml</p>
+                        <pre style="height: 100%;"><code data-trim data-noescape class="language-yaml">
+                            version: "3.9"
+                            services:
+                              mongodb:
+                                image: mongo
+                                ...
+                                mongo-express:
+                                image: mongo-express
+                                ports:
+                                  - 8081:8081
+                                environment:
+                                  ME_CONFIG_MONGODB_ADMINUSERNAME: hello 
+                                  ME_CONFIG_MONGODB_ADMINPASSWORD: world 
+                                  ME_CONFIG_MONGODB_SERVER: mongodb
+                                depends_on:
+                                  - mongodb
                         </code></pre>
                     </section>
+
+
+                <section>
+                    <h3>Syntaxe du docker compose</h3>
+                    <pre style="height: 100%;"><code data-trim data-noescape class="language-yaml">
+                        version: "3.9"
+                          services:
+                            mongodb: # Nom du service 
+                              image: mongo # Nom de l'image à utiliser
+                              build : path/to/dockerfile # Si l'image n'est pas en local, on la construit   
+                              container_name: mongo # le nom du conteneur --name
+                              ports: # les ports -p
+                              - 27017:27017
+                              environment: # les variables d'env -e ou --env
+                                MONGO_INITDB_ROOT_USERNAME: hello
+                                MONGO_INITDB_ROOT_PASSWORD: world
+                            mongo-express: # Un autre conteneur
+                              image: mongo-express
+                              ports:
+                                - 8081:8081
+                              environment:
+                                ME_CONFIG_MONGODB_ADMINUSERNAME: hello 
+                                ME_CONFIG_MONGODB_ADMINPASSWORD: world 
+                                ME_CONFIG_MONGODB_SERVER: mongodb
+                              depends_on: # Doit être lancé une fois que la liste est construite
+                                - mongodb
+                    </code></pre>
                 </section>
+
+                <section>
+                    <h3>Syntaxe docker-compose</h3>
+                    <pre style="height: 100%;"><code data-trim data-noescape>
+# Lancer un groupe de service en étant dans le dossier du docker-compose.yml
+docker-compose [-f file] up
+
+# Éteindre
+docker-compose down
+
+# Voir
+docker-compose ps
+
+# Exécuter commande
+docker-compose exec [container name]
+                    </code></pre>
+                </section>
+            </section>
 
                 <section>
                     <section>
@@ -451,8 +563,8 @@ services:
                             </li>
                             <li>Comment tester de manière isolé une application complexe ?</li>
                             <li>Se baser sur des services fait exprès ? Bof bof </li>
-                            <li>Créer des containers, c'est mieux mais laborieux</li>
-                            <li>Faire que notre code génère des containers !</li>
+                            <li>Créer des conteneurs, c'est mieux mais laborieux</li>
+                            <li>Faire que notre code génère des conteneurs !</li>
                         </ul>
                     </section>
 
@@ -460,14 +572,14 @@ services:
                         <h3>Testcontainer</h3>
                         <ul>
                             <li>Existe pour python et java</li>
-                            <li>Permet de lancer un container lors des tests</li>
+                            <li>Permet de lancer un conteneurlors des tests</li>
                             <li>Et de surcharger la configuration</li>
                             <li>Permet d'avoir des tests vraiment unitaire</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3>Testcontainer : dépendances</h3>
+                        <h3>Testconteneur: dépendances</h3>
                         <pre><code data-trim class="language-xml">
 <dependency>
     <groupId>org.testcontainers</groupId>
@@ -485,9 +597,9 @@ services:
                     </section>
 
                     <section>
-                        <h3>Testcontainer : créer un container</h3>
+                        <h3>Testconteneur: créer un container</h3>
                         <pre><code data-trim class="language-java">
-@Container # Annotation pour laisser testcontainer gérer le cycle de vie
+@conteneur# Annotation pour laisser testconteneurgérer le cycle de vie
 private static PostgreSQLContainer&lt;?&gt; postgresDB = 
     new PostgreSQLContainer&lt;&gt;("postgres:13.2") //nom de l'image
         .withDatabaseName("postgres") // passage de variable d'environnement
@@ -497,7 +609,7 @@ private static PostgreSQLContainer&lt;?&gt; postgresDB =
                     </section>
 
                     <section>
-                        <h3>Testcontainer : mettre à jour la configuration</h3>
+                        <h3>Testconteneur: mettre à jour la configuration</h3>
 
                         <pre><code data-trim class="language-java">
                             @Testcontainers
@@ -525,7 +637,7 @@ private static PostgreSQLContainer&lt;?&gt; postgresDB =
                     </section>
 
                     <section>
-                        <h3>Testcontainer : Faire un test</h3>
+                        <h3>Testconteneur: Faire un test</h3>
                         <pre><code data-trim class="language-java">
                             @Test
                             void getEmployees() {
@@ -538,10 +650,10 @@ private static PostgreSQLContainer&lt;?&gt; postgresDB =
                             </code></pre>
                     </section>
                     <section>
-                        <h3>Testcontainer : Bilan</h3>
+                        <h3>Testconteneur: Bilan</h3>
                         <ul>
                             <li>Décorrélation entre le service de stockage et le code</li>
-                            <li>Uniquement besoin de définir un container</li>
+                            <li>Uniquement besoin de définir un conteneur</li>
                             <li>Et de modifier la configuration de Spring Boot</li>
                             <li>Car il va tout faire lui même</li>
                             <li>On arrive à avoir rendre étanche nos tests</li>

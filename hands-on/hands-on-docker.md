@@ -13,6 +13,10 @@ ___
 - [Créer des images](#créer-des-images)
   - [Docker et python 🐳🐍](#docker-et-python-)
   - [Docker et java 🐳☕](#docker-et-java-)
+- [Docker-compose](#docker-compose)
+  - [Mongo + Mongo Express](#mongo--mongo-express)
+  - [Python + Redis](#python--redis)
+  - [Python + PostgresSQL](#python--postgressql)
 
 
 ___
@@ -121,3 +125,39 @@ Faites la même chose avec un code python à vous.
     3. Copiez le jar
     4. Exécutez l'application au lancement du package avec CMD ou ENTRYPOINT
 4. Testez votre image
+
+## Docker-compose
+
+### Mongo + Mongo Express
+Reprenez l'exemple du cours et lancez via `docker-compose` un serveur mongo et mongo-express. Pour cela :
+1. Créez un fichier `docker-compose.yml` avec un service mongo et un service mongo-express
+2. Lancez vos conteneurs avec la commande `docker-compose up`
+3. Connectez vous sur `localhost:8081` voir si vous avez l'application mongo-express 
+4. Éteignez vos containers avec un `docker-compose down`
+
+
+### Python + Redis
+Récupérez le code hitCount sur Moodle. Créez une fichier `docker-compose.yml` dans le dossier récupéré qui permet de faire fonctionner l'application. Pour cela vous devez :
+1. Définir un service que vous appellerez `web`. Il devra exposer le port 5000, et sera construit (mon clef `build` dans le `docker-compose.yml`) à partir du `dockerfile` présent dans le dossier
+2. Définir un service que vous appellerez reddis qui utilise l'image `redis:alpine`
+3. Lancer vos conteneurs avec un `docker-compose up`,  allez visiter la page `localhost:5000` et rafraîchissez la page.
+4. Éteindre vos containers avec un `docker-compose down`
+
+
+### Python + PostgresSQL
+Récupérez le code WSPython sur Moodle.
+1. Créez un fichier `dockerfile` dans le dossier ws qui contiendra le code python. Attention il faut :
+   1. Partir de l'image `python:alpine`
+   2. Installer des dépendances via pip
+   3. Copier le code
+   4. Exposer le port 80
+  Vous pouvez vous inspirez du `dockerfile` du précédent exercice. 
+2. Créez un fichier `dockerfile` dans le dossier sql qui permettra de créer une image d'une base postgreSQL contenant les données du fichier init_db.sql
+3. Créez un fichier `docker-compose.yml` à la racine de l'application. Il permettra de lancer
+   1. La base de données. Attention vous êtes obligé de passer une variable d'env `POSTGRES_PASSWORD`
+   2. Le webservice python. Comme votre webservice doit se connecter à la base il faut lui passer les variables d'environnement suivantes :
+     - `PASSWORD` avec comme valeur la même valeur que `POSTGRES_PASSWORD`
+     - `HOST` prendra le nom du service que vous avez donné à la base postgres dans votre fichier docker-compose.yml
+     - `PORT` sera `5432`
+     - `DATABASE` sera égale à postgres si vous avez laisser la valeur `POSTGRES_DB` de la base par défaut
+     - `USER` sera égale à postgres si vous avez laisser la valeur `POSTGRES_USER` de la base par défaut
