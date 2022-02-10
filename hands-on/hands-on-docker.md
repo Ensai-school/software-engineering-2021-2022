@@ -142,7 +142,13 @@ Récupérez le code hitCount sur Moodle. Créez une fichier `docker-compose.yml`
 2. Définir un service que vous appellerez reddis qui utilise l'image `redis:alpine`
 3. Lancer vos conteneurs avec un `docker-compose up`,  allez visiter la page `localhost:5000` et rafraîchissez la page.
 4. Éteindre vos containers avec un `docker-compose down`
-
+5. Modifier votre `docker-compose.yml` pour ajouter un volume à la base redis. Ajouter à votre `docker-compose.yml` au même niveau que la clef `services` une clef `volumes` avec un élément `reddis_volume` (ajoutez des : pour respecter la syntaxe yml). Le volume doit pointer vers le répertoire `/data` du conteneur. Il vous faut ajouter un élément volumes à votre objet `reddis` : 
+{% highlight bash %}
+    volumes:
+      - reddis_volume:/data
+{% endhighlight %}
+6. Lancer vos conteneurs avec un `docker-compose up`,  allez visiter la page `localhost:5000` et rafraîchissez la page.
+7. Tuer et relancer vos conteneurs puis retourner sur la page `localhost:5000`
 
 ### Python + PostgresSQL
 Récupérez le code WSPython sur Moodle.
