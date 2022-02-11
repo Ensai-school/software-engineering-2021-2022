@@ -135,6 +135,8 @@ Reprenez l'exemple du cours et lancez via `docker-compose` un serveur mongo et m
 3. Connectez vous sur `localhost:8081` voir si vous avez l'application mongo-express 
 4. Éteignez vos containers avec un `docker-compose down`
 
+### Ubuntu 
+
 
 ### Python + Redis
 Récupérez le code hitCount sur Moodle. Créez une fichier `docker-compose.yml` dans le dossier récupéré qui permet de faire fonctionner l'application. Pour cela vous devez :
