@@ -26,7 +26,7 @@ docker exec -it mongo1 mongosh --eval "rs.initiate({
 
 docker exec -it mongo1 mongo
 
-db.Canard.insert({"nom":"Picous"})
+db.Canard.insert({"nom":"Scrouge"})
 db.Canard.insert({"nom":"Donald"})
 db.Canard.insert({"nom":"Della"})
 db.Canard.insert({"nom":"Huey"})
